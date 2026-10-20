@@ -10,7 +10,7 @@ A projekt során fontos szempont a könnyű kezelhetőség, az átlátható fel�
 
 ## 2. A projekt bemutatása
 
-Ez a projektterv egy telefontokokat árusító webáruház fejlesztését mutatja be, amely 2026. szeptember 10-től november végéig tart. A projekten három fejlesztő, Jánk Titanilla, Daróczi Attila és Bíró Linda fog dolgozni. A projekt célja egy működőképes, könnyen használható és átlátható weboldal elkészítése, amelyen a felhasználók különböző telefonmodellekhez választhatnak és vásárolhatnak telefontokokat. Az elkészült feladatokat négy alkalommal, mérföldkövenként fogjuk bemutatni annak érdekében, hogy a projekt folyamatos előrehaladását és az egyes fejlesztési szakaszok eredményeit is nyomon lehessen követni.
+Ez a projektterv egy telefontokokat árusító webáruház fejlesztését mutatja be, amely 2026. szeptember 10-től november végéig tart. A projekten három fejlesztő, Jánk Titanilla, Daroczi Attila és Bíró Linda fog dolgozni. A projekt célja egy működőképes, könnyen használható és átlátható weboldal elkészítése, amelyen a felhasználók különböző telefonmodellekhez választhatnak és vásárolhatnak telefontokokat. Az elkészült feladatokat négy alkalommal, mérföldkövenként fogjuk bemutatni annak érdekében, hogy a projekt folyamatos előrehaladását és az egyes fejlesztési szakaszok eredményeit is nyomon lehessen követni.
 
 ## 2.1. A webáruház célja
 
