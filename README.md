@@ -10,7 +10,7 @@ A projekt során fontos szempont a könnyű kezelhetőség, az átlátható fel�
 
 ## 2. A projekt bemutatása
 
-Ez a projektterv egy telefontokokat árusító webáruház fejlesztését mutatja be, amely 2026. szeptember 10-től novemberéig tart. A projekten három fejlesztő, Jánk Titanilla, Daróczi Attila és Bíró Linda fog dolgozni. A projekt célja egy működőképes, könnyen használható és átlátható weboldal elkészítése, amelyen a felhasználók különböző telefonmodellekhez választhatnak és vásárolhatnak telefontokokat. Az elkészült feladatokat négy alkalommal, mérföldkövenként fogjuk bemutatni annak érdekében, hogy a projekt folyamatos előrehaladását és az egyes fejlesztési szakaszok eredményeit is nyomon lehessen követni.
+Ez a projektterv egy telefontokokat árusító webáruház fejlesztését mutatja be, amely 2026. szeptember 10-től november végéig tart. A projekten három fejlesztő, Jánk Titanilla, Daroczi Attila és Bíró Linda fog dolgozni. A projekt célja egy működőképes, könnyen használható és átlátható weboldal elkészítése, amelyen a felhasználók különböző telefonmodellekhez választhatnak és vásárolhatnak telefontokokat. Az elkészült feladatokat négy alkalommal, mérföldkövenként fogjuk bemutatni annak érdekében, hogy a projekt folyamatos előrehaladását és az egyes fejlesztési szakaszok eredményeit is nyomon lehessen követni.
 
 ## 2.1. A webáruház célja
 
@@ -21,7 +21,7 @@ A rendszernek képesnek kell lennie arra, hogy az egyedi telefontokokat, valamin
 * **Felhasználók kezelése (látogató, regisztrált vásárló, admin) (CRUD)**
 * **Felhasználói munkamenet megvalósítása (regisztráció, bejelentkezés, kijelentkezés)**
 * **Termékek kezelése és adminisztrációja (CRUD)**
-* **Termékek keresése kulcsszavak alapján**
+* **Termékek szűrése**
 * **Kosár (Cart) funkció kezelése (termékek hozzáadása, módosítása, törlése)**
 * **Vásárlások/Rendelések lebonyolítása és kezelése (CRUD)**
 
@@ -29,15 +29,21 @@ A rendszernek képesnek kell lennie arra, hogy az egyedi telefontokokat, valamin
 
 * **A kliens oldal böngészőfüggetlen legyen**
 * **Reszponzív megjelenés (mobil, tablet és asztali nézet)**
-* **Az érzékeny adatokat (például jelszavak, felhasználói adatok) biztonságosan, titkosítva tároljuk**
+* **Az érzékeny adatokat (például jelszavak, felhasználói adatok) biztonságosan, titkosítva tároljuk (hashelve)**
+* **SQL injection elleni védelem**
+* **XSS (Cross-Site Scripting) elleni védelem**
+* **Felhasználói adatok ellenőrzése (például kötelező mezők, e-mail cím, jelszó)**
+* **Felhasználói jogosultságok kezelése (vásárló, adminisztrátor)**
+* **Egyszerű és átlátható felhasználói felület**
+* **Megfelelő hibakezelés és érthető hibaüzenetek megjelenítése**
 * **Gyors oldalbetöltési idő és optimalizált adatbázis-lekérdezések a gördülékeny vásárlási élményért**
 * **A legfrissebb technológiákat használja a rendszer**
 
-## 4. Szervezeti felépítés és felelősségmegosztás
+## 3. Szervezeti felépítés és felelősségmegosztás
 
 A projekt megrendelője `Tóth Attila`. A `Webshop` projektet a projektcsapat fogja végrehajtani, ami `jelenleg három főből áll. A csapatban pályakezdő programozók vannak, de elhivatott, még gyakorlatra készülő diákok.`
 
-### 4.1 Projektcsapat
+### 3.1 Projektcsapat
 
 A projekt a következő emberekből áll:
 
@@ -47,9 +53,9 @@ A projekt a következő emberekből áll:
 | `Bíró Linda` | Projekt tag      | `ezprivatinfo@nemtudjukhogymegekellmondani.com`    |
 | `Jánk Titanilla`   | Projektmenedzser      | `ezprivatinfo@nemtudjukhogymegekellmondani.com`    |
 
-## 5. A munka feltételei
+## 4. A munka feltételei
 
-### 5.1. Munkakörnyezet
+### 4.1. Munkakörnyezet
 
 A projekt a következő munkaállomásokat fogja használni a munka során:
 
@@ -65,7 +71,7 @@ A projekt a következő technológiákat/szoftvereket fogja használni a munka s
  - `HTML5, CSS3, JavaScript / PHP technológiák`
  - `XAMPP / MySQL adatbázis-kezelő környezet`
 
-### 5.2. Rizikómenedzsment
+### 4.2. Rizikómenedzsment
 
 | Kockázat | Leírás | Valószínűség | Hatás |
 | :--- | :--- | :--- | :--- |
