@@ -1,0 +1,358 @@
+/* Alapbeállítások */
+:root {
+  --kek: #0875d1;
+  --kek-sotet: #0562b5;
+  --fekete: #171717;
+  --szurke: #666666;
+  --hatter: #f5f7fa;
+  --feher: #ffffff;
+  --keret: #e2e7ed;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: var(--hatter);
+  color: var(--fekete);
+  padding-bottom: 0;
+}
+
+.oldal {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Fejléc */
+.fejlec {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 90%;
+  margin: 20px auto;
+  padding: 15px 20px;
+  border: 1px solid var(--keret);
+  background-color: var(--feher);
+  border-radius: 10px;
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: var(--fekete);
+  padding: 5px 10px;
+}
+
+.logo span {
+  color: var(--kek);
+}
+
+/* Keresősáv */
+.kereso-sav {
+  flex-grow: 1;
+  max-width: 500px;
+  margin: 0 20px;
+}
+
+.kereso-sav input {
+  width: 100%;
+  padding: 12px 18px;
+  border: 1px solid var(--keret);
+  border-radius: 25px;
+  outline: none;
+  background-color: var(--hatter);
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.kereso-sav input:focus {
+  border-color: var(--kek);
+  box-shadow: 0 0 0 3px rgba(8, 117, 209, 0.1);
+}
+
+/* Fejléc gombjai */
+.fejlec-gombok {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.fiok-gomb {
+  padding: 9px 18px;
+  border: 1px solid var(--kek);
+  border-radius: 25px;
+  background: var(--feher);
+  color: var(--kek);
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.fiok-gomb:hover {
+  background-color: var(--kek);
+  color: var(--feher);
+}
+
+.kosar {
+  font-weight: bold;
+  color: var(--fekete);
+  cursor: pointer;
+}
+
+.kosar:hover {
+  color: var(--kek);
+}
+
+/* Kiemelt rész */
+.kiemelt-resz {
+  border: 1px solid var(--keret);
+  background: linear-gradient(135deg, #ffffff 0%, #eaf4ff 100%);
+  padding: 80px 20px;
+  text-align: center;
+  margin-bottom: 40px;
+  border-radius: 12px;
+}
+
+.kiemelt-szoveg h1 {
+  font-size: 34px;
+  margin-bottom: 15px;
+  color: var(--fekete);
+  font-weight: 800;
+}
+
+.kiemelt-alcim {
+  font-size: 16px;
+  margin-bottom: 30px;
+  color: var(--szurke);
+  line-height: 1.6;
+}
+
+.kiemelt-link {
+  display: inline-block;
+  color: var(--feher);
+  background-color: var(--kek);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 14px 28px;
+  border-radius: 25px;
+  transition: 0.2s;
+}
+
+.kiemelt-link:hover {
+  background-color: var(--kek-sotet);
+  transform: translateY(-2px);
+}
+
+/* Szekciók címei */
+h2 {
+  font-size: 22px;
+  margin-bottom: 22px;
+  font-weight: bold;
+  color: var(--fekete);
+}
+
+.kategoria-resz,
+.termekek-resz {
+  margin-bottom: 45px;
+}
+
+/* Négy oszlopos elrendezés */
+.negy-oszlop {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* Márka és termék kártyák */
+.marka-kartya,
+.termek-kartya {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--keret);
+  background-color: var(--feher);
+  padding: 25px 20px;
+  text-align: center;
+  text-decoration: none;
+  color: var(--fekete);
+  border-radius: 10px;
+  transition: 0.25s;
+}
+
+.marka-kartya:hover,
+.termek-kartya:hover {
+  border-color: var(--kek);
+  box-shadow: 0 5px 20px rgba(8, 117, 209, 0.12);
+  transform: translateY(-4px);
+}
+
+.marka-kartya h3,
+.termek-kartya h3 {
+  font-size: 15px;
+  margin-top: 15px;
+  margin-bottom: 8px;
+}
+
+.marka-kartya p,
+.ar {
+  font-size: 13px;
+  color: var(--szurke);
+}
+
+/* Képek helye */
+.kep-helye {
+  font-size: 12px;
+  color: var(--kek);
+  margin-bottom: 5px;
+  background-color: #eaf4ff;
+  width: 100%;
+  padding: 45px 10px;
+  border-radius: 8px;
+}
+
+/* Termékárak */
+.ar {
+  color: var(--kek);
+  font-size: 15px;
+  font-weight: bold;
+}
+
+/* Tablet nézet */
+@media (max-width: 900px) {
+  .negy-oszlop {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobil nézet */
+@media (max-width: 600px) {
+  .fejlec {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .negy-oszlop {
+    grid-template-columns: 1fr;
+  }
+
+  .kereso-sav {
+    width: 100%;
+    margin: 0;
+  }
+
+  .kiemelt-resz {
+    padding: 50px 15px;
+  }
+
+  .kiemelt-szoveg h1 {
+    font-size: 26px;
+  }
+
+  h2 {
+    font-size: 19px;
+  }
+
+  .lablec-tartalom {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+}
+
+/* Lábléc */
+.lablec {
+  border-top: 3px solid var(--kek);
+  background-color: var(--feher);
+  margin-top: 60px;
+  padding: 45px 0;
+}
+
+.lablec-tartalom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+/* Lábléc oszlopai */
+.lablec-oszlop h4 {
+  font-size: 16px;
+  margin-bottom: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--fekete);
+}
+
+.lablec-oszlop ul {
+  list-style: none;
+}
+
+.lablec-oszlop ul li {
+  margin-bottom: 12px;
+}
+
+.lablec-oszlop ul li a {
+  color: var(--szurke);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.lablec-oszlop ul li a:hover {
+  color: var(--kek);
+  text-decoration: underline;
+}
+
+/* Hírlevél */
+.hirlevel p {
+  font-size: 14px;
+  color: var(--szurke);
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+/* Hírlevél feliratkozás */
+.hirlevel-urlap {
+  display: flex;
+  gap: 10px;
+}
+
+.hirlevel-urlap input {
+  flex-grow: 1;
+  min-width: 0;
+  padding: 11px 12px;
+  border: 1px solid var(--keret);
+  border-radius: 6px;
+  outline: none;
+  font-size: 14px;
+}
+
+.hirlevel-urlap input:focus {
+  border-color: var(--kek);
+}
+
+.hirlevel-urlap button {
+  padding: 11px 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--kek);
+  color: var(--feher);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.hirlevel-urlap button:hover {
+  background-color: var(--kek-sotet);
+}
