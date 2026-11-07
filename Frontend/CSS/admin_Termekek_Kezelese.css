@@ -1,0 +1,172 @@
+/* Fő menedzser elrendezés a jobb oldalon */
+.termek-menedzser {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+/* Felső vezérlők */
+.lista-vezerlok {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.uj-termek-sor {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.szuro-sor {
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    gap: 15px;
+}
+
+.szuro-sor input, .szuro-sor select, .urlap-grid input, .urlap-grid select {
+    padding: 12px 15px;
+    border: 1px solid var(--keret);
+    border-radius: 8px;
+    outline: none;
+    background-color: var(--feher);
+    font-size: 14px;
+    color: var(--fekete);
+}
+
+.szuro-sor input:focus, .szuro-sor select:focus, .urlap-grid input:focus, .urlap-grid select:focus {
+    border-color: var(--kek);
+}
+
+/* Kerekített gombok */
+.gomb-kerek {
+    padding: 11px 24px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 14px;
+}
+
+.gomb-primer {
+    background-color: var(--kek);
+    color: var(--feher);
+    border: none;
+}
+
+.gomb-primer:hover {
+    background-color: var(--kek-sotet);
+}
+
+.gomb-szekunder {
+    background-color: var(--feher);
+    color: var(--fekete);
+    border: 1px solid var(--keret);
+}
+
+.gomb-szekunder:hover {
+    background-color: var(--hatter);
+}
+
+.gomb-torles {
+    background-color: var(--feher);
+    color: #ff4d4d;
+    border: 1px solid #ff4d4d;
+}
+
+.gomb-torles:hover {
+    background-color: #ff4d4d;
+    color: var(--feher);
+}
+
+/* Termék lista doboza */
+.termek-lista-doboz {
+    background-color: var(--feher);
+    border: 1px solid var(--keret);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.lista-fejlec-sor {
+    background-color: #EAF4FF;
+    padding: 15px 20px;
+    font-weight: bold;
+    font-size: 14px;
+    color: var(--kek);
+    border-bottom: 1px solid var(--keret);
+}
+
+.termek-sor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--hatter);
+    font-size: 15px;
+}
+
+.termek-sor:last-child {
+    border-bottom: none;
+}
+
+.termek-infok {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.kep-jelolo {
+    background-color: var(--hatter);
+    color: var(--szurke);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.termek-muveletek {
+    display: flex;
+    gap: 10px;
+}
+
+/* Szaggatott fájl feltöltő doboz */
+.fajl-feltolto {
+    border: 2px dashed var(--keret);
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    background-color: var(--hatter);
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--szurke);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    transition: 0.2s;
+}
+
+.fajl-feltolto:hover {
+    border-color: var(--kek);
+    color: var(--kek);
+}
+
+.fajl-feltolto input[type="file"] {
+    display: none;
+        }
+
+/* Reszponzivitás mobilra */
+@media (max-width: 850px) {
+    .szuro-sor {
+        grid-template-columns: 1fr;
+    }
+    .termek-sor {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .termek-muveletek {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}

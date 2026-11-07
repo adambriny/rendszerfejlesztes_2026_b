@@ -3,25 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../CSS/index.css">
+    <link rel="stylesheet" href="../rendszerfejlesztes_2026_b/Frontend/CSS/index.css">
     <title>CASEFLOW Telefontok Webáruház</title>
 </head>
 <body>
     <header class="fejlec">
-        <div class="logo">CASE<span>FLOW</span></div>
+
+    <div class="logo">
+        <img src="./Frontend/PNG/logo12.png" class="logo-kep">
+    </div>
+
         <div class="kereso-sav">
             <input type="text"
-                   placeholder="Keresés telefonmodell vagy minta szerint...">
+             placeholder="Keresés telefonmodell vagy minta szerint...">
         </div>
 
         <div class="fejlec-gombok">
-            <button class="fiok-gomb">Fiókom</button>
+            <a href="../rendszerfejlesztes_2026_b/Frontend/HTML/admin_Bejelentkezes.html">
+                <button class="fiok-gomb">Fiókom</button>
+            </a>
         </div>
     </header>
 
     <main class="oldal">
         <section class="kiemelt-resz">
-
             <div class="kiemelt-szoveg">
                 <h1>Találd meg a stílusod!</h1>
 
@@ -125,8 +130,10 @@
                 </p>
 
                 <form class="hirlevel-urlap">
-                    <input type="email" placeholder="E-mail címed..."required>
-                    <button type="submit">Feliratkozás</button>
+                    <a href="../HTML/admin_Bejelentkezes.html">
+                        <input type="email" placeholder="E-mail címed..."required>
+                        <button type="submit">Feliratkozás</button>
+                    </a>
                 </form>
             </div>
         </div>

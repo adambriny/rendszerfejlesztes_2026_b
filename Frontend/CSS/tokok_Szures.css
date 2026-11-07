@@ -1,0 +1,196 @@
+/* Globális elrendezés konfiguráció */
+.szures-kontener {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* Kenyérmorzsa */
+.kenyermorzsa {
+    font-size: 13px;
+    color: var(--szurke);
+    margin-bottom: 20px;
+}
+
+.kenyermorzsa a {
+    color: var(--szurke);
+    text-decoration: none;
+}
+
+.kenyermorzsa a:hover {
+    color: var(--kek);
+}
+
+/* Cím és rendezés sor */
+.oldal-fejlec-sor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.termekek-cime {
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.rendezes-doboz select, .szuro-select {
+    padding: 10px 15px;
+    border: 1px solid var(--keret);
+    border-radius: 8px;
+    background-color: var(--feher);
+    font-size: 14px;
+    outline: none;
+    color: var(--fekete);
+}
+
+/* Fő tartalom elrendezése: Szűrősáv + Termékrács */
+.szures-tartalom {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* Bal oldali szűrősáv */
+.szuro-sáv {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.szuro-focim {
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.szuro-blokk {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.szuro-cim {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--fekete);
+    margin-bottom: 2px;
+}
+
+.szuro-select {
+    width: 100%;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--fekete);
+    cursor: pointer;
+}
+
+.checkbox-container input {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+
+.ar-tartomany-szoveg {
+    font-size: 14px;
+    color: var(--szurke);
+}
+
+/* Jobb oldali termékrács (3 oszlopos elrendezés a kép alapján) */
+.termek-racs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+/* Termékkártya stílusok */
+.tok-kartya {
+    background-color: var(--feher);
+    border: 1px solid var(--keret);
+    border-radius: 12px;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: 0.25s ease;
+}
+
+.tok-kartya:hover {
+    border-color: var(--kek);
+    box-shadow: 0 8px 25px rgba(8, 117, 209, 0.08);
+    transform: translateY(-4px);
+}
+
+.kep-doboz {
+    width: 100%;
+    height: 220px;
+    background-color: var(--hatter);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: var(--szurke);
+    margin-bottom: 20px;
+    border: 1px solid var(--keret);
+}
+
+.tok-nev {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: var(--fekete);
+}
+
+.tok-ar {
+    font-size: 14px;
+    color: var(--szurke);
+    margin-bottom: 12px;
+}
+
+/* Készlet státuszok színjelzései */
+.keszlet-statusz {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.keszlet-statusz.raktaron {
+    color: #2e7d32; /* Zöld */
+}
+
+.keszlet-statusz.keves {
+    color: #ef6c00; /* Narancs */
+}
+
+.keszlet-statusz.elfogyott {
+    color: #c62828; /* Piros */
+}
+
+/* Mobil és tablet reszponzivitás */
+@media (max-width: 900px) {
+    .termek-racs {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 680px) {
+    .szures-tartalom {
+        grid-template-columns: 1fr;
+    }
+    .termek-racs {
+        grid-template-columns: 1fr;
+    }
+    .oldal-fejlec-sor {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+}

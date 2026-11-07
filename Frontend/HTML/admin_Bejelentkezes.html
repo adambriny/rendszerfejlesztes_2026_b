@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/admin_Belep.css">
+    <link rel="stylesheet" href="../JS/admin_Belep.js">
+    <title>Bejelentkezés – CASEFLOW</title>
+</head>
+<body>
+    <!-- Fejléc (Összhangban a főoldallal) -->
+    <header class="fejlec">
+        <a href="../../index.html" class="logo">CASE<span>FLOW</span></a>
+    </header>
+
+    <!-- Fő tartalom -->
+    <main class="bejelentkezes-kontener">
+        <div class="bejelentkezes-kartya">
+            <h1 class="oldal-cim">Bejelentkezés</h1>
+            
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <!-- E-mail mező -->
+                <div class="input-csoport">
+                    <label for="email">E-mail cím</label>
+                    <input type="email" id="email" placeholder="pelda@email.com" required>
+                </div>
+
+                <!-- Jelszó mező -->
+                <div class="input-csoport">
+                    <label for="jelszo">Jelszó</label>
+                    <input type="password" id="jelszo" placeholder="******" required>
+                </div>
+
+                <!-- Elfelejtett jelszó link -->
+                <div class="link-sor">
+                    <a href="#" onclick="alert('Jelszó-helyreállítási funkció hamarosan!')" class="elfelejtett-link">Elfelejtett jelszó?</a>
+                </div>
+
+                <!-- Statikus hibaüzenet doboz (alapértelmezetten rejtett) -->
+                <div id="hibaDoboz" class="hiba-uzenet" style="display: none;">
+                    Hibás e-mail cím vagy jelszó. Kérjük, próbáld újra.
+                </div>
+
+                <!-- Bejelentkezés gomb -->
+                <div class="gomb-sor">
+                    <button type="submit" class="gomb-kerek gomb-primer">Bejelentkezés</button>
+                </div>
+            </form>
+        </div>
+    </main>    
+</body>
+</html>
