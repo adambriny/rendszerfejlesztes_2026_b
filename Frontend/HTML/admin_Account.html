@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/admin_Account.css">
+    <link rel="stylesheet" href="../JS/admin_Account.js">
+    <link rel="stylesheet" href="../CSS/admin_Belep.css">
+    <link rel="stylesheet" href="../JS/admin_Belep.js">
+    <link rel="stylesheet" href="../HTML/admin_Bejelentkezes.html">
+    <title>Saját fiókom (Admin) – CASEFLOW</title>
+</head>
+<body>
+    <!-- Fejléc (Összhangban a főoldallal) -->
+    <header class="fejlec">
+    <div class="logo">
+        <img src="../PNG/logo12.png" class="logo-kep">
+    </div>
+        <div class="kereso-sav">
+            <input type="text" placeholder="Keresés telefonmodell vagy minta szerint...">
+        </div>
+        <div class="fejlec-gombok">
+            <button class="fiok-gomb">Fiókom</button>
+            <div class="admin-badge">ADMIN</div>
+        </div>
+    </header>
+
+    <!-- Fő tartalom -->
+    <main class="admin-konténer">
+        <h1 class="admin-cim">Saját fiókom (Admin)</h1>
+
+        <div class="admin-tartalom">
+            <!-- Oldalsáv gombjai -->
+            <aside class="oldalsav">
+                <button class="menu-gomb aktiv">Személyes adatok</button>
+                <a href="../HTML/admin_Termekek_Kezelese.html">
+                    <button class="menu-gomb">Termékek kezelése</button>
+                </a>
+                <button class="menu-gomb" onclick="alert('Rendelések kezelése funkció')">Rendelések kezelése</button>
+                <button class="menu-gomb" onclick="alert('Felhasználók kezelése funkció')">Felhasználók
+                    kezelése</button>
+                <button class="menu-gomb" onclick="alert('Jelszó módosítása funkció')">Jelszó módosítása</button>
+
+                <button class="kijelentkezes-gomb" onclick="kijelentkezes()">Kijelentkezés</button>
+            </aside>
+
+            <!-- Űrlap panel -->
+            <section class="adat-panel">
+                <h2 class="panel-cim">Személyes adatok</h2>
+
+                <form id="adminForm" onsubmit="adatokMentese(event)">
+                    <div class="urlap-grid">
+                        <div class="input-csoport">
+                            <label for="nev">Név:</label>
+                            <input type="text" id="nev" value="Admin Péter" required>
+                        </div>
+                        <div class="input-csoport">
+                            <label for="email">E-mail:</label>
+                            <input type="email" id="email" value="admin@pelda.hu" required>
+                        </div>
+                        <div class="input-csoport">
+                            <label for="tel">Telefonszám:</label>
+                            <input type="text" id="tel" value="+36 30 765 4321">
+                        </div>
+                        <div class="input-csoport">
+                            <label for="szerep">Szerepkör:</label>
+                            <input type="text" id="szerep" value="Adminisztrátor" disabled>
+                        </div>
+                    </div>
+
+                    <div class="akcio-gombok">
+                        <button type="submit" class="mentes-gomb">Adatok mentése</button>
+                        <button type="button" class="megse-gomb" onclick="formAlaphelyzet()">Mégse</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </main>
+</body>
+</html>

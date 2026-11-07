@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/felhasznalo_Kezeles.css">
+    <link href="../JS/felhasznalo_Kezeles.js">
+    <link rel="stylesheet" href="../CSS/admin_Account.css">
+    <link rel="stylesheet" href="../CSS/admin_Termekek_Kezelese.css">
+    <link rel="stylesheet" href="../JS/admin_Termekek_Kezelese.js">
+    <link rel="stylesheet" href="../HTML/felhasznalo_Kezeles.html">
+    <title>Felhasználók kezelése – CASEFLOW</title>
+</head>
+<body>
+    <!-- Fejléc (Összhangban a többi admin oldallal) -->
+    <header class="fejlec">
+        <a href="../../index.html" class="logo">CASE<span>FLOW</span></a>
+        <div class="kereso-sav">
+            <input type="text" placeholder="Keresés telefonmodell vagy minta szerint...">
+        </div>
+        <div class="fejlec-gombok">
+            <a href="../HTML/admin_Account.html">
+                <button class="fiok-gomb">Fiókom</button>
+            </a>
+            <div class="admin-badge">ADMIN</div>
+        </div>
+    </header>
+
+    <!-- Fő tartalom -->
+    <main class="admin-konténer">
+        <h1 class="admin-cim">Felhasználók kezelése</h1>
+
+        <div class="admin-tartalom">
+            <!-- Oldalsáv gombjai (A megfelelő hivatkozásokkal) -->
+            <aside class="oldalsav">
+                <a href="../HTML/admin_Account.html">
+                    <button class="menu-gomb">Személyes adatok</button>
+                </a>
+                <a href="../HTML/admin_Termekek_Kezelese.html">
+                    <button class="menu-gomb">Termékek kezelése</button>
+                </a>
+                <button class="menu-gomb" onclick="alert('Rendelések kezelése funkció')">Rendelések kezelése</button>
+                <button class="menu-gomb aktiv">Felhasználók kezelése</button>
+                <button class="menu-gomb" onclick="alert('Jelszó módosítása funkció')">Jelszó módosítása</button>
+
+                <button class="kijelentkezes-gomb" onclick="kijelentkezes()">Kijelentkezés</button>
+            </aside>
+
+            <!-- Felhasználókezelő fő panel a jobb oldalon -->
+            <section class="felhasznalo-menedzser">
+                
+                <!-- Keresés és Szerepkör szűrés sor -->
+                <div class="szuro-sor">
+                    <input type="text" id="keresoInput" placeholder="Keresés név vagy e-mail szerint..." oninput="felhasznaloSzures()">
+                    <select id="szerepSzuro" onchange="felhasznaloSzures()">
+                        <option value="">Szerepkör: Összes</option>
+                        <option value="Regisztrált vásárló">Regisztrált vásárló</option>
+                        <option value="Adminisztrátor">Adminisztrátor</option>
+                    </select>
+                </div>
+
+                <!-- Felhasználói táblázat / lista doboz -->
+                <div class="felhasznalo-lista-doboz">
+                    <div class="lista-fejlec-sor">
+                        Név - E-mail - Regisztráció - Szerepkör - Művelet
+                    </div>
+                    
+                    <!-- 1. Felhasználó sor -->
+                    <div class="felhasznalo-sor" data-nev="Minta Anna" data-email="anna@pelda.hu" data-szerep="Regisztrált vásárló">
+                        <div class="felhasznalo-infok">
+                            <span>Minta Anna - anna@pelda.hu - 2026.09.15.</span>
+                        </div>
+                        <div class="felhasznalo-muveletek">
+                            <select class="szerep-valaszto" onchange="szerepValtoztatasAsztal('Minta Anna', this)">
+                                <option value="Regisztrált vásárló" selected>Regisztrált vásárló</option>
+                                <option value="Adminisztrátor">Adminisztrátor</option>
+                            </select>
+                            <button class="mentes-kis-gomb" onclick="mentesErtesites('Minta Anna')">Mentés</button>
+                        </div>
+                    </div>
+
+                    <!-- 2. Felhasználó sor -->
+                    <div class="felhasznalo-sor" data-nev="Kiss Bence" data-email="bence@pelda.hu" data-szerep="Regisztrált vásárló">
+                        <div class="felhasznalo-infok">
+                            <span>Kiss Bence - bence@pelda.hu - 2026.09.28.</span>
+                        </div>
+                        <div class="felhasznalo-muveletek">
+                            <select class="szerep-valaszto" onchange="szerepValtoztatasAsztal('Kiss Bence', this)">
+                                <option value="Regisztrált vásárló" selected>Regisztrált vásárló</option>
+                                <option value="Adminisztrátor">Adminisztrátor</option>
+                            </select>
+                            <button class="mentes-kis-gomb" onclick="mentesErtesites('Kiss Bence')">Mentés</button>
+                        </div>
+                    </div>
+
+                    <!-- 3. Felhasználó sor (Saját Admin fiók - a legördülő tiltott a drótváz alapján) -->
+                    <div class="felhasznalo-sor" data-nev="Admin Péter" data-email="admin@pelda.hu" data-szerep="Adminisztrátor">
+                        <div class="felhasznalo-infok">
+                            <span>Admin Péter - admin@pelda.hu - 2026.09.10.</span>
+                        </div>
+                        <div class="felhasznalo-muveletek">
+                            <select class="szerep-valaszto" disabled>
+                                <option value="Regisztrált vásárló">Regisztrált vásárló</option>
+                                <option value="Adminisztrátor" selected>Adminisztrátor</option>
+                            </select>
+                            <button class="mentes-kis-gomb" onclick="mentesErtesites('Admin Péter')">Mentés</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Szaggatott vonalas Megerősítés Panel (Alaphelyzetben rejtett, JS jeleníti meg) -->
+                <div id="megerositoPanel" class="szaggatott-panel" style="display: none;">
+                    <h3 class="szaggatott-cim">Megerősítés szerepkör módosításakor</h3>
+                    <p class="szaggatott-szoveg">Biztosan <span id="ujSzerepNev">Adminisztrátor</span> szerepkört adsz <span id="celFelhasznaloNev">Kiss Bence</span> részére?</p>
+                    
+                    <div class="szaggatott-gombok">
+                        <button class="megerosit-gomb" onclick="szerepVeglegesites()">Igen, módosítom</button>
+                        <button class="megse-gomb" onclick="szerepMegse()">Mégse</button>
+                    </div>
+                </div>
+
+                <!-- Alsó figyelmeztető felirat -->
+                <p class="admin-figyelmeztetes">A saját admin fiók szerepköre nem módosítható, így az admin nem zárhatja ki magát.</p>
+
+            </section>
+        </div>
+    </main>
+</body>
+</html>

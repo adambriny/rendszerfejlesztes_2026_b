@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/admin_Account.css">
+    <link rel="stylesheet" href="../CSS/admin_Termekek_Kezelese.css">
+    <link rel="stylesheet" href="../JS/admin_Termekek_Kezelese.js">
+    <link rel="stylesheet" href="../HTML/felhasznalo_Kezeles.html">
+    <title>Termékek kezelése – CASEFLOW</title>
+</head>
+<body>
+    <!-- Fejléc (Összhangban a főoldallal és a fiókom oldallal) -->
+    <header class="fejlec">
+        <a href="../../index.html" class="logo">CASE<span>FLOW</span></a>
+        <div class="kereso-sav">
+            <input type="text" placeholder="Keresés telefonmodell vagy minta szerint...">
+        </div>
+        <div class="fejlec-gombok">
+            <a href="../HTML/admin_Account.html">
+                <button class="fiok-gomb">Fiókom</button>
+            </a>
+            <div class="admin-badge">ADMIN</div>
+        </div>
+    </header>
+
+    <!-- Fő tartalom -->
+    <main class="admin-konténer">
+        <h1 class="admin-cim">Termékek kezelése</h1>
+
+        <div class="admin-tartalom">
+            <!-- Oldalsáv gombjai -->
+            <aside class="oldalsav">
+                <a href="../HTML/admin_Account.html">
+                    <button class="menu-gomb">Személyes adatok</button>
+                </a>
+                <a href="../HTML/admin_Termekek_Kezelese.html">
+                    <button class="menu-gomb">Termékek kezelése</button>
+                </a>
+                <button class="menu-gomb" onclick="alert('Rendelések kezelése funkció')">Rendelések kezelése</button>
+                <a href="../HTML/felhasznalo_Kezeles.html">
+                    <button class="menu-gomb">Felhasználók kezelése</button>
+                </a>
+                <button class="menu-gomb" onclick="alert('Jelszó módosítása funkció')">Jelszó módosítása</button>
+
+                <button class="kijelentkezes-gomb" onclick="kijelentkezes()">Kijelentkezés</button>
+            </aside>
+
+            <!-- Termékkezelő fő panel -->
+            <section class="termek-menedzser">
+                
+                <!-- Lista vezérlők: Új termék gomb és kereső/szűrő -->
+                <div class="lista-vezerlok">
+                    <div class="uj-termek-sor">
+                        <button class="gomb-kerek gomb-primer" onclick="ujTermekLetrehozasa()">+ Új termék</button>
+                    </div>
+                    <div class="szuro-sor">
+                        <input type="text" id="keresoInput" placeholder="Keresés terméknév szerint..." oninput="szuresFunkcio()">
+                        <select id="markaSzuro" onchange="szuresFunkcio()">
+                            <option value="">Márka: Összes</option>
+                            <option value="Apple">Apple</option>
+                            <option value="Samsung">Samsung</option>
+                            <option value="Huawei">Huawei</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Termék lista doboza -->
+                <div class="termek-lista-doboz">
+                    <div class="lista-fejlec-sor">
+                        Kép - Terméknév - Modell - Ár - Készlet - Műveletek
+                    </div>
+                    
+                    <div class="termek-sor" data-nev="Átlátszó MagSafe tok" data-marka="Apple">
+                        <div class="termek-infok">
+                            <span class="kep-jelolo">[Kép]</span>
+                            <span>Átlátszó MagSafe tok - iPhone 17 Pro - 8 990 Ft - 12 db</span>
+                        </div>
+                        <div class="termek-muveletek">
+                            <button class="gomb-kerek gomb-szekunder" onclick="termekSzerkesztes('Átlátszó MagSafe tok', 'apple-17pro', 8990, 12, 'tpu-atve')">Szerkesztés</button>
+                            <button class="gomb-kerek gomb-torles" onclick="termekTorles(this)">Törlés</button>
+                        </div>
+                    </div>
+
+                    <div class="termek-sor" data-nev="Virágmintás szilikontok" data-marka="Apple">
+                        <div class="termek-infok">
+                            <span class="kep-jelolo">[Kép]</span>
+                            <span>Virágmintás szilikontok - iPhone 17 Pro - 3 990 Ft - 8 db</span>
+                        </div>
+                        <div class="termek-muveletek">
+                            <button class="gomb-kerek gomb-szekunder" onclick="termekSzerkesztes('Virágmintás szilikontok', 'apple-17pro', 3990, 8, 'szilikon-mintas')">Szerkesztés</button>
+                            <button class="gomb-kerek gomb-torles" onclick="termekTorles(this)">Törlés</button>
+                        </div>
+                    </div>
+
+                    <div class="termek-sor" data-nev="Bőr flip tok" data-marka="Samsung">
+                        <div class="termek-infok">
+                            <span class="kep-jelolo">[Kép]</span>
+                            <span>Bőr flip tok - Galaxy S25 - 6 490 Ft - 5 db</span>
+                        </div>
+                        <div class="termek-muveletek">
+                            <button class="gomb-kerek gomb-szekunder" onclick="termekSzerkesztes('Bőr flip tok', 'samsung-s25', 6490, 5, 'bor-fekete')">Szerkesztés</button>
+                            <button class="gomb-kerek gomb-torles" onclick="termekTorles(this)">Törlés</button>
+                        </div>
+                    </div>
+
+                    <div class="termek-sor" data-nev="Geometrikus TPU tok" data-marka="Huawei">
+                        <div class="termek-infok">
+                            <span class="kep-jelolo">[Kép]</span>
+                            <span>Geometrikus TPU tok - Huawei P70 - 2 990 Ft - 0 db</span>
+                        </div>
+                        <div class="termek-muveletek">
+                            <button class="gomb-kerek gomb-szekunder" onclick="termekSzerkesztes('Geometrikus TPU tok', 'huawei-p70', 2990, 0, 'tpu-atve')">Szerkesztés</button>
+                            <button class="gomb-kerek gomb-torles" onclick="termekTorles(this)">Törlés</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Űrlap panel (Szerkesztés / Új termék) -->
+                <section class="adat-panel" id="formSzekcio">
+                    <h2 class="panel-cim" id="formCim">Termék szerkesztése / új termék</h2>
+                    
+                    <form id="termekForm" onsubmit="termekMentese(event)">
+                        <div class="urlap-grid">
+                            <div class="input-csoport">
+                                <label for="termekNev">Név *</label>
+                                <input type="text" id="termekNev" value="Átlátszó MagSafe tok" required>
+                            </div>
+                            <div class="input-csoport">
+                                <label for="termekModell">Márka / Modell *</label>
+                                <select id="termekModell" required>
+                                    <option value="apple-17pro">Apple - iPhone 17 Pro</option>
+                                    <option value="samsung-s25">Samsung - Galaxy S25</option>
+                                    <option value="huawei-p70">Huawei - P70</option>
+                                </select>
+                            </div>
+                            <div class="input-csoport">
+                                <label for="termekAr">Ár (Ft) *</label>
+                                <input type="number" id="termekAr" value="8990" required>
+                            </div>
+                            <div class="input-csoport">
+                                <label for="termekKeszlet">Készlet (db) *</label>
+                                <input type="number" id="termekKeszlet" value="12" required>
+                            </div>
+                            <div class="input-csoport">
+                                <label for="termekAnyag">Anyag / Szín *</label>
+                                <select id="termekAnyag">
+                                    <option value="tpu-atve">TPU - Átlátszó</option>
+                                    <option value="szilikon-mintas">Szilikon - Mintás</option>
+                                    <option value="bor-fekete">Bőr - Fekete</option>
+                                </select>
+                            </div>
+                            <div class="input-csoport">
+                                <label>Kép feltöltése *</label>
+                                <label class="fajl-feltolto">
+                                    Tallózás...
+                                    <input type="file" id="termekKep" accept="image/*">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="akcio-gombok">
+                            <button type="submit" class="gomb-kerek gomb-primer">Mentés</button>
+                            <button type="button" class="gomb-kerek gomb-szekunder" onclick="formUrites()">Mégse</button>
+                        </div>
+                    </form>
+                </section>
+
+            </section>
+        </div>
+    </main>
+</body>
+</html>

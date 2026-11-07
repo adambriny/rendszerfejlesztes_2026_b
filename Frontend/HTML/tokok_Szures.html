@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/admin_Account.css">
+    <link rel="stylesheet" href="../CSS/tokok_Szures.css">
+    <link rel="stylesheet" href="../JS/tokok_Szures.js">
+    <title>iPhone 17 Pro tokok – CASEFLOW</title>
+</head>
+<body>
+    <!-- Fejléc (Összhangban a főoldallal) -->
+    <header class="fejlec">
+        <a href="../../index.html" class="logo">CASE<span>FLOW</span></a>
+        <div class="kereso-sav">
+            <input type="text" placeholder="Keresés telefonmodell vagy minta szerint...">
+        </div>
+        <div class="fejlec-gombok">
+            <a href="../HTML/admin_Account.html">
+                <button class="fiok-gomb">Fiókom</button>
+            </a>
+        </div>
+    </header>
+
+    <!-- Fő tartalom konténer -->
+    <main class="szures-kontener">
+        <!-- Kenyérmorzsa navigáció -->
+        <nav class="kenyermorzsa">
+            <a href="/rendszerfejlesztes_2026_b/index.html">Főoldal</a> / <a href="#">iPhone</a> / <span>iPhone 17 Pro</span>
+        </nav>
+
+        <!-- Oldal címe és rendezés sora -->
+        <div class="oldal-fejlec-sor">
+            <h1 class="termekek-cime">iPhone 17 Pro tokok</h1>
+            <div class="rendezes-doboz">
+                <select id="rendezesSelect" onchange="rendezesFunkcio()">
+                    <option value="ar-szerint">Rendezés: Ár szerint</option>
+                    <option value="nev-szerint">Rendezés: Név szerint</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="szures-tartalom">
+            <!-- Bal oldali szűrősáv -->
+            <aside class="szuro-sáv">
+                <h2 class="szuro-focim">Szűrők</h2>
+
+                <!-- Márka szűrő -->
+                <div class="szuro-blokk">
+                    <label class="szuro-cim">Márka</label>
+                    <select class="szuro-select">
+                        <option value="apple">Apple</option>
+                        <option value="samsung">Samsung</option>
+                    </select>
+                </div>
+
+                <!-- Modell szűrő -->
+                <div class="szuro-blokk">
+                    <label class="szuro-cim">Modell</label>
+                    <select class="szuro-select">
+                        <option value="iphone17pro">iPhone 17 Pro</option>
+                        <option value="iphone17">iPhone 17</option>
+                    </select>
+                </div>
+
+                <!-- Anyag szűrő -->
+                <div class="szuro-blokk">
+                    <label class="szuro-cim">Anyag</label>
+                    <label class="checkbox-container"><input type="checkbox" value="szilikon" checked> Szilikon</label>
+                    <label class="checkbox-container"><input type="checkbox" value="bor"> Bőr</label>
+                    <label class="checkbox-container"><input type="checkbox" value="tpu"> TPU</label>
+                    <label class="checkbox-container"><input type="checkbox" value="fa"> Fa</label>
+                </div>
+
+                <!-- Minta szűrő -->
+                <div class="szuro-blokk">
+                    <label class="szuro-cim">Minta</label>
+                    <label class="checkbox-container"><input type="checkbox" value="egyszinu"> Egyszínű</label>
+                    <label class="checkbox-container"><input type="checkbox" value="viragmintas"> Virágmintás</label>
+                    <label class="checkbox-container"><input type="checkbox" value="atme"> Átlátszó</label>
+                    <label class="checkbox-container"><input type="checkbox" value="geometrikus"> Geometrikus</label>
+                </div>
+
+                <!-- Szín szűrő -->
+                <div class="szuro-blokk">
+                    <label class="szuro-cim">Szín</label>
+                    <select class="szuro-select">
+                        <option value="kek">Kék</option>
+                        <option value="fekete">Fekete</option>
+                        <option value="feher">Fehér</option>
+                    </select>
+                </div>
+
+                <!-- Ár szűrő -->
+                <div class="szuro-blokk">
+                    <label class="szuro-cim">Ár</label>
+                    <p class="ar-tartomany-szoveg">0 Ft — 20 000 Ft</p>
+                </div>
+
+                <!-- Készlet szűrő -->
+                <div class="szuro-blokk">
+                    <label class="szuro-cim">Készlet</label>
+                    <label class="checkbox-container"><input type="checkbox" id="csakRaktaronCheckbox" onchange="szuresRaktar()"> Csak raktáron lévő</label>
+                </div>
+            </aside>
+
+            <!-- Jobb oldali termékrács (3 oszlopos) -->
+            <section class="termek-racs" id="termekRacs">
+                
+                <!-- 1. Termék -->
+                <div class="tok-kartya" data-raktaron="true" data-ar="8990">
+                    <div class="kep-doboz">Tok kép</div>
+                    <h3 class="tok-nev">Átlátszó MagSafe tok</h3>
+                    <p class="tok-ar">8 990 Ft-tól</p>
+                    <span class="keszlet-statusz raktaron">Raktáron</span>
+                </div>
+
+                <!-- 2. Termék -->
+                <div class="tok-kartya" data-raktaron="true" data-ar="4990">
+                    <div class="kep-doboz">Tok kép</div>
+                    <h3 class="tok-nev">Virágmintás szilikontok</h3>
+                    <p class="tok-ar">4 990 Ft-tól</p>
+                    <span class="keszlet-statusz raktaron">Raktáron</span>
+                </div>
+
+                <!-- 3. Termék -->
+                <div class="tok-kartya" data-raktaron="true" data-ar="11990">
+                    <div class="kep-doboz">Tok kép</div>
+                    <h3 class="tok-nev">Bőr pénztárca tok</h3>
+                    <p class="tok-ar">11 990 Ft-tól</p>
+                    <span class="keszlet-statusz keves">Utolsó 3 db</span>
+                </div>
+
+                <!-- 4. Termék -->
+                <div class="tok-kartya" data-raktaron="true" data-ar="9990">
+                    <div class="kep-doboz">Tok kép</div>
+                    <h3 class="tok-nev">Ütésálló tok</h3>
+                    <p class="tok-ar">9 990 Ft-tól</p>
+                    <span class="keszlet-statusz raktaron">Raktáron</span>
+                </div>
+
+                <!-- 5. Termék -->
+                <div class="tok-kartya" data-raktaron="false" data-ar="5990">
+                    <div class="kep-doboz">Tok kép</div>
+                    <h3 class="tok-nev">Csillámos tok</h3>
+                    <p class="tok-ar">5 990 Ft-tól</p>
+                    <span class="keszlet-statusz elfogyott">Elfogyott (nem rendelhető)</span>
+                </div>
+
+                <!-- 6. Termék -->
+                <div class="tok-kartya" data-raktaron="true" data-ar="7490">
+                    <div class="kep-doboz">Tok kép</div>
+                    <h3 class="tok-nev">Geometrikus fa tok</h3>
+                    <p class="tok-ar">7 490 Ft-tól</p>
+                    <span class="keszlet-statusz raktaron">Raktáron</span>
+                </div>
+
+            </section>
+        </div>
+    </main>
+
+    <script src="../JS/tokok_Szures.js"></script>
+</body>
+</html>

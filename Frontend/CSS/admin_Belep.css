@@ -1,0 +1,175 @@
+/* CASEFLOW Globális dizájn alapok és színek */
+:root {
+    --kek: #0875D1;
+    --kek-sotet: #0562B5;
+    --fekete: #171717;
+    --szurke: #666666;
+    --hatter: #F5F7FA;
+    --feher: #FFFFFF;
+    --keret: #E2E7ED;
+}
+
+/* Alapbeállítások a teljes oldalon a pozicionáláshoz */
+body {
+    background-color: var(--hatter);
+    color: var(--fekete);
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Fix fejléc stílus */
+.fejlec {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 90%;
+    margin: 20px auto 0 auto;
+    padding: 15px 20px;
+    border: 1px solid var(--keret);
+    background-color: var(--feher);
+    border-radius: 10px;
+    width: 100%;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: var(--fekete);
+    text-decoration: none;
+}
+
+.logo span {
+    color: var(--kek);
+}
+
+/* A konténer, ami tökéletesen KÖZÉPRE teszi a dobozt függőlegesen és vízszintesen is */
+.bejelentkezes-kontener {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* A középső bejelentkező doboz (Kártya) */
+.bejelentkezes-kartya {
+    background-color: var(--feher);
+    border: 1px solid var(--keret);
+    border-radius: 16px;
+    padding: 40px;
+    width: 100%;
+    max-width: 420px; /* Fix elegáns szélesség */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); /* Lágy árnyék a kiemeléshez */
+    text-align: center;
+}
+
+.oldal-cim {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 30px;
+    color: var(--fekete);
+}
+
+/* Űrlap elemek elrendezése */
+.bejelentkezes-kartya .input-csoport {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    gap: 8px;
+    margin-bottom: 20px;
+    text-align: left; /* A feliratok balra zártak maradnak a dobozon belül */
+}
+
+.bejelentkezes-kartya .input-csoport label {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--szurke);
+}
+
+.bejelentkezes-kartya .input-csoport input {
+    padding: 14px 18px;
+    border: 1px solid var(--keret);
+    border-radius: 8px;
+    outline: none;
+    background-color: var(--hatter);
+    font-size: 15px;
+    color: var(--fekete);
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.bejelentkezes-kartya .input-csoport input:focus {
+    border-color: var(--kek);
+    background-color: var(--feher);
+    box-shadow: 0 0 0 3px rgba(8, 117, 209, 0.1);
+}
+
+/* Link sor elrendezése */
+.link-sor {
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.elfelejtett-link {
+    font-size: 13px;
+    color: var(--szurke);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.elfelejtett-link:hover {
+    color: var(--kek);
+    text-decoration: underline;
+}
+
+/* Drótváz szerinti hibaüzenet doboz */
+.hiba-uzenet {
+    background-color: #fff5f5;
+    border: 1px solid #ff4d4d;
+    color: #ff4d4d;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+/* Bejelentkező gomb */
+.gomb-sor {
+    margin-bottom: 25px;
+}
+
+.gomb-sor .gomb-kerek {
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+    border-radius: 25px;
+    border: none;
+    background-color: var(--kek);
+    color: var(--feher);
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.gomb-sor .gomb-kerek:hover {
+    background-color: var(--kek-sotet);
+}
+
+.gomb-sor .gomb-kerek:active {
+    transform: scale(0.98);
+}
+
+/* Alsó apróbetűs szöveg */
+.infó-szöveg {
+    font-size: 13px;
+    color: var(--szurke);
+    line-height: 1.5;
+    margin: 0;
+}

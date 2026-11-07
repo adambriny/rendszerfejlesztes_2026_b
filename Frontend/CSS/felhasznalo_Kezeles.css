@@ -1,0 +1,177 @@
+/* Felhasználókezelő fő panel elrendezése */
+.felhasznalo-menedzser {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Kereső és szerepkör szűrő sor */
+.szuro-sor {
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 20px;
+}
+
+.szuro-sor input, .szuro-sor select, .felhasznalo-muveletek select {
+    padding: 12px 18px;
+    border: 1px solid var(--keret);
+    border-radius: 25px; /* A drótváz szerinti kerekített beviteli mezők */
+    outline: none;
+    background-color: var(--feher);
+    font-size: 14px;
+    color: var(--fekete);
+    transition: border-color 0.2s;
+}
+
+.szuro-sor input:focus, .szuro-sor select:focus, .felhasznalo-muveletek select:focus {
+    border-color: var(--kek);
+}
+
+/* Felhasználói lista táblázat doboza */
+.felhasznalo-lista-doboz {
+    background-color: var(--feher);
+    border: 1px solid var(--keret);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.lista-fejlec-sor {
+    background-color: #EAF4FF;
+    padding: 15px 20px;
+    font-weight: bold;
+    font-size: 14px;
+    color: var(--kek);
+    border-bottom: 1px solid var(--keret);
+}
+
+.felhasznalo-sor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--hatter);
+    font-size: 15px;
+}
+
+.felhasznalo-sor:last-child {
+    border-bottom: none;
+}
+
+.felhasznalo-infok {
+    display: flex;
+    align-items: center;
+}
+
+.felhasznalo-muveletek {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Mentés kis gomb a sorokban */
+.mentes-kis-gomb {
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 13px;
+    background-color: var(--feher);
+    color: var(--fekete);
+    border: 1px solid var(--keret);
+    transition: 0.2s;
+}
+
+.mentes-kis-gomb:hover {
+    border-color: var(--kek);
+    color: var(--kek);
+    background-color: #EAF4FF;
+}
+
+/* Drótváz szerinti szaggatott megerősítő panel */
+.szaggatott-panel {
+    border: 2px dashed var(--szurke);
+    border-radius: 12px;
+    padding: 25px;
+    background-color: var(--feher);
+    margin-top: 10px;
+}
+
+.szaggatott-cim {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: var(--fekete);
+}
+
+.szaggatott-szoveg {
+    font-size: 14px;
+    color: var(--fekete);
+    margin-bottom: 20px;
+}
+
+.szaggatott-szoveg span {
+    font-weight: bold;
+}
+
+.szaggatott-gombok {
+    display: flex;
+    gap: 15px;
+}
+
+.megerosit-gomb {
+    padding: 10px 22px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+    background-color: var(--feher);
+    color: var(--fekete);
+    border: 1px solid var(--keret);
+    transition: 0.2s;
+}
+
+.megerosit-gomb:hover {
+    background-color: var(--kek);
+    color: var(--feher);
+    border-color: var(--kek);
+}
+
+.szaggatott-panel .megse-gomb {
+    padding: 10px 22px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+    background-color: var(--feher);
+    color: var(--szurke);
+    border: 1px solid var(--keret);
+    transition: 0.2s;
+}
+
+.szaggatott-panel .megse-gomb:hover {
+    background-color: var(--hatter);
+    color: var(--fekete);
+}
+
+/* Alsó apróbetűs figyelmeztetés */
+.admin-figyelmeztetes {
+    font-size: 13px;
+    color: var(--szurke);
+    margin-top: 10px;
+}
+
+/* Reszponzív nézet mobilra */
+@media (max-width: 850px) {
+    .szuro-sor {
+        grid-template-columns: 1fr;
+    }
+    .felhasznalo-sor {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .felhasznalo-muveletek {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}

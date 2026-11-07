@@ -41,12 +41,9 @@ body {
   border-radius: 10px;
 }
 
-.logo {
-  font-size: 27px;
-  font-weight: 900;
-  letter-spacing: -1px;
-  color: var(--fekete);
-  padding: 5px 10px;
+.logo img {
+  width: 100%;
+  height: 70px;
 }
 
 .logo span {
