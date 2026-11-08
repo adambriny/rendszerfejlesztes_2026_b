@@ -1,5 +1,5 @@
 <?php
-require_once("../dbconnect.php");
+require_once __DIR__ . '/dbconnect.php';
 
 //telefonmodellek tábla feltöltés
 
@@ -50,7 +50,7 @@ $termekek = [
         'nev' => 'Elegáns Márvány mintás Tok', 
         'leiras' => 'Stílusos, fényes felületű márvány mintás védőtok stílusos megjelenést biztosítva.', 
         'minta' => 'Márvány', 
-        'anyag' => 'Műanyag'
+        'anyag' => 'Fa'
     ],
     [
         'nev' => 'Ultra Rugalmas Crystal Clear Tok', 
@@ -62,7 +62,7 @@ $termekek = [
         'nev' => 'Carbon Hatású Ütésálló Páncél Tok', 
         'leiras' => 'Katonai szintű védelem a sarkokon megerősített ütközéssel és modern karbon mintával.', 
         'minta' => 'Karbon', 
-        'anyag' => 'Carbon'
+        'anyag' => 'TPU'
     ],
     [
         'nev' => 'Prémium Bőr Hatású Védőtok', 
@@ -109,6 +109,7 @@ try{
     //változat feltöltés
     $sqlValtozatBeszur = "INSERT INTO termek_valtozat (termek_id, modell_id, szin, ar, keszlet, kep_url) VALUES (:termek_id, :modell_id, :szin, :ar, :keszlet, :kep_url)";
 
+    $lekerdezesValtozat = $dbConn->prepare($sqlValtozatBeszur);
     $szinek=["fekete","fehér","piros","átlátszó","rózsaszín","zöld","kék"];
 
     foreach($termekId as $t){

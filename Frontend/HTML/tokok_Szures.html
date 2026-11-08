@@ -5,18 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../CSS/admin_Account.css">
     <link rel="stylesheet" href="../CSS/tokok_Szures.css">
-    <link rel="stylesheet" href="../JS/tokok_Szures.js">
     <title>iPhone 17 Pro tokok – CASEFLOW</title>
 </head>
 <body>
     <!-- Fejléc (Összhangban a főoldallal) -->
     <header class="fejlec">
         <a href="../../index.html" class="logo">CASE<span>FLOW</span></a>
-        <div class="kereso-sav">
-            <input type="text" placeholder="Keresés telefonmodell vagy minta szerint...">
-        </div>
+        <form class="kereso-sav" method="get" id="keresesiUrlap2">
+            <input type="search" id="kereso-sav" name="kereso" placeholder="Keresés telefonmodell vagy minta szerint...">
+        </form>
+        
+
         <div class="fejlec-gombok">
             <a href="../HTML/admin_Account.html">
+                <button type="submit" form="keresesiUrlap2"  class="fiok-gomb">Keresés</button>
+                <button type="button"  class="fiok-gomb" onclick="window.location.href='../../index.html'">Mégse</button>
                 <button class="fiok-gomb">Fiókom</button>
             </a>
         </div>
@@ -47,47 +50,37 @@
 
                 <!-- Márka szűrő -->
                 <div class="szuro-blokk">
-                    <label class="szuro-cim">Márka</label>
-                    <select class="szuro-select">
-                        <option value="apple">Apple</option>
-                        <option value="samsung">Samsung</option>
+                    <label class="szuro-cim" for="markaSzuro">Márka</label>
+                    <select id="markaSzuro" class="szuro-select">
+                        <option value="">Minden márka</option>
                     </select>
                 </div>
 
                 <!-- Modell szűrő -->
                 <div class="szuro-blokk">
-                    <label class="szuro-cim">Modell</label>
-                    <select class="szuro-select">
-                        <option value="iphone17pro">iPhone 17 Pro</option>
-                        <option value="iphone17">iPhone 17</option>
+                    <label class="szuro-cim" for="modellSzuro">Modell</label>
+                    <select id="modellSzuro" class="szuro-select">
+                        <option value="">Minden modell</option>
                     </select>
                 </div>
 
                 <!-- Anyag szűrő -->
                 <div class="szuro-blokk">
                     <label class="szuro-cim">Anyag</label>
-                    <label class="checkbox-container"><input type="checkbox" value="szilikon" checked> Szilikon</label>
-                    <label class="checkbox-container"><input type="checkbox" value="bor"> Bőr</label>
-                    <label class="checkbox-container"><input type="checkbox" value="tpu"> TPU</label>
-                    <label class="checkbox-container"><input type="checkbox" value="fa"> Fa</label>
+                    <div id="anyagOpcioLista"></div>
                 </div>
 
                 <!-- Minta szűrő -->
                 <div class="szuro-blokk">
                     <label class="szuro-cim">Minta</label>
-                    <label class="checkbox-container"><input type="checkbox" value="egyszinu"> Egyszínű</label>
-                    <label class="checkbox-container"><input type="checkbox" value="viragmintas"> Virágmintás</label>
-                    <label class="checkbox-container"><input type="checkbox" value="atme"> Átlátszó</label>
-                    <label class="checkbox-container"><input type="checkbox" value="geometrikus"> Geometrikus</label>
+                    <div id="mintaOpcioLista"></div>
                 </div>
 
                 <!-- Szín szűrő -->
                 <div class="szuro-blokk">
-                    <label class="szuro-cim">Szín</label>
-                    <select class="szuro-select">
-                        <option value="kek">Kék</option>
-                        <option value="fekete">Fekete</option>
-                        <option value="feher">Fehér</option>
+                    <label class="szuro-cim" for="szinSzuro">Szín</label>
+                    <select id="szinSzuro" class="szuro-select">
+                        <option value="">Minden szín</option>
                     </select>
                 </div>
 
