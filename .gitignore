@@ -16,7 +16,6 @@
 *.log
 *.sqlite
 *.sql
-*./error.log
 
 # ==========================================
 # Fejlesztői környezet (IDE / Szerkesztők)
