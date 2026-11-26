@@ -146,3 +146,15 @@ try {
     unset(\$_SESSION['kosar']);
 } catch (Exception e) pdo->rollBack();
 }
+
+## Unit tesztek futtatása
+
+A projekt backend szűrőfüggvényeihez PHPUnit unit tesztek tartoznak (`Backend/adatbazis/ExampleTest.php`).
+
+**Futtatás:**
+1. Töltsd le a PHPUnit 11 `.phar` fájlt (`phpunit-11.5.58.phar`) a projekt gyökérkönyvtárába (vagy egy mappával feljebb).
+2. Futtasd a teszteket a projekt gyökérkönyvtárából a következő paranccsal:
+   ```bash
+   php phpunit-11.5.58.phar Backend/adatbazis/ExampleTest.php
+   ```
+
