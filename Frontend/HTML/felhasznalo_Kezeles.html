@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../CSS/felhasznalo_Kezeles.css">
-    <link href="../JS/felhasznalo_Kezeles.js">
     <link rel="stylesheet" href="../CSS/admin_Account.css">
     <link rel="stylesheet" href="../CSS/admin_Termekek_Kezelese.css">
-    <link rel="stylesheet" href="../JS/admin_Termekek_Kezelese.js">
-    <link rel="stylesheet" href="../HTML/felhasznalo_Kezeles.html">
     <title>Felhasználók kezelése – CASEFLOW</title>
 </head>
 <body>
@@ -41,10 +38,22 @@
                 <a href="../HTML/admin_Termekek_Kezelese.html">
                     <button class="menu-gomb">Termékek kezelése</button>
                 </a>
-                <button class="menu-gomb" onclick="alert('Rendelések kezelése funkció')">Rendelések kezelése</button>
                 <button class="menu-gomb aktiv">Felhasználók kezelése</button>
-                <button class="menu-gomb" onclick="alert('Jelszó módosítása funkció')">Jelszó módosítása</button>
+                <button
+                    type="button"
+                    class="menu-gomb"
+                    onclick="adminMenuUzenetMegjelenitese('A rendeléskezelő felület még nem érhető el.')">
+                    Rendelések kezelése
+                </button>
 
+                <button
+                    type="button"
+                    class="menu-gomb"
+                    onclick="adminMenuUzenetMegjelenitese('A jelszómódosítási felület még nem érhető el.')">
+                    Jelszó módosítása
+                </button>
+
+                <p id="adminMenuUzenet" class="admin-menu-uzenet" role="status" aria-live="polite"></p>
                 <button class="kijelentkezes-gomb" onclick="kijelentkezes()">Kijelentkezés</button>
             </aside>
 
@@ -56,58 +65,19 @@
                     <input type="text" id="keresoInput" placeholder="Keresés név vagy e-mail szerint..." oninput="felhasznaloSzures()">
                     <select id="szerepSzuro" onchange="felhasznaloSzures()">
                         <option value="">Szerepkör: Összes</option>
-                        <option value="Regisztrált vásárló">Regisztrált vásárló</option>
-                        <option value="Adminisztrátor">Adminisztrátor</option>
+                        <option value="vasarlo">Regisztrált vásárló</option>
+                        <option value="admin">Adminisztrátor</option>
                     </select>
                 </div>
 
                 <!-- Felhasználói táblázat / lista doboz -->
                 <div class="felhasznalo-lista-doboz">
                     <div class="lista-fejlec-sor">
-                        Név - E-mail - Regisztráció - Szerepkör - Művelet
-                    </div>
-                    
-                    <!-- 1. Felhasználó sor -->
-                    <div class="felhasznalo-sor" data-nev="Minta Anna" data-email="anna@pelda.hu" data-szerep="Regisztrált vásárló">
-                        <div class="felhasznalo-infok">
-                            <span>Minta Anna - anna@pelda.hu - 2026.09.15.</span>
-                        </div>
-                        <div class="felhasznalo-muveletek">
-                            <select class="szerep-valaszto" onchange="szerepValtoztatasAsztal('Minta Anna', this)">
-                                <option value="Regisztrált vásárló" selected>Regisztrált vásárló</option>
-                                <option value="Adminisztrátor">Adminisztrátor</option>
-                            </select>
-                            <button class="mentes-kis-gomb" onclick="mentesErtesites('Minta Anna')">Mentés</button>
-                        </div>
+                        Név - E-mail - Állapot - Szerepkör - Művelet
                     </div>
 
-                    <!-- 2. Felhasználó sor -->
-                    <div class="felhasznalo-sor" data-nev="Kiss Bence" data-email="bence@pelda.hu" data-szerep="Regisztrált vásárló">
-                        <div class="felhasznalo-infok">
-                            <span>Kiss Bence - bence@pelda.hu - 2026.09.28.</span>
-                        </div>
-                        <div class="felhasznalo-muveletek">
-                            <select class="szerep-valaszto" onchange="szerepValtoztatasAsztal('Kiss Bence', this)">
-                                <option value="Regisztrált vásárló" selected>Regisztrált vásárló</option>
-                                <option value="Adminisztrátor">Adminisztrátor</option>
-                            </select>
-                            <button class="mentes-kis-gomb" onclick="mentesErtesites('Kiss Bence')">Mentés</button>
-                        </div>
-                    </div>
-
-                    <!-- 3. Felhasználó sor (Saját Admin fiók - a legördülő tiltott a drótváz alapján) -->
-                    <div class="felhasznalo-sor" data-nev="Admin Péter" data-email="admin@pelda.hu" data-szerep="Adminisztrátor">
-                        <div class="felhasznalo-infok">
-                            <span>Admin Péter - admin@pelda.hu - 2026.09.10.</span>
-                        </div>
-                        <div class="felhasznalo-muveletek">
-                            <select class="szerep-valaszto" disabled>
-                                <option value="Regisztrált vásárló">Regisztrált vásárló</option>
-                                <option value="Adminisztrátor" selected>Adminisztrátor</option>
-                            </select>
-                            <button class="mentes-kis-gomb" onclick="mentesErtesites('Admin Péter')">Mentés</button>
-                        </div>
-                    </div>
+                    <div id="felhasznaloLista"></div>
+                    <p id="adminUzenet" role="status"></p>
                 </div>
 
                 <!-- Szaggatott vonalas Megerősítés Panel (Alaphelyzetben rejtett, JS jeleníti meg) -->
@@ -127,5 +97,6 @@
             </section>
         </div>
     </main>
+    <script src="../JS/felhasznalo_Kezeles.js"></script>
 </body>
 </html>
