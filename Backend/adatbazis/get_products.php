@@ -1,5 +1,6 @@
 <?php
-
+// A böngészőnek jelezzük, hogy a válasz JSON formátumú lesz 
+header('Content-Type: application/json; charset=utf-8');
 if (!function_exists('valasz')) {
     function valasz(array $adat, int $statusz = 200): void
     {
