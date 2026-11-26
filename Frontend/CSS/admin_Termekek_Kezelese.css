@@ -170,3 +170,69 @@
         justify-content: flex-end;
     }
 }
+
+/* A további termékeket nyitó sor */
+#tovabbiTermekek {
+    border-top: 1px solid var(--keret);
+}
+
+#tovabbiTermekek summary {
+    padding: 14px 20px;
+    background-color: #EAF4FF;
+    color: var(--kek);
+    font-weight: bold;
+    cursor: pointer;
+    list-style: none;
+    transition: background-color 0.2s;
+}
+
+#tovabbiTermekek summary::-webkit-details-marker {
+    display: none;
+}
+
+#tovabbiTermekek summary::after {
+    content: '+';
+    float: right;
+    font-size: 18px;
+    line-height: 1;
+}
+
+#tovabbiTermekek[open] summary::after {
+    content: '−';
+}
+
+#tovabbiTermekek summary:hover {
+    background-color: #DCEEFF;
+}
+
+.ures-talalat {
+    margin: 0;
+    padding: 10px 10px;
+    color: var(--szurke);
+    text-align: center;
+    font-size: 15px;
+}
+
+
+.fiok-uzenet,
+.admin-menu-uzenet {
+  display: none;
+  padding: 12px 15px;
+  border: 1px solid var(--keret);
+  border-radius: 8px;
+  background-color: #eaf4ff;
+  color: var(--kek);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.fiok-uzenet:not(:empty),
+.admin-menu-uzenet:not(:empty) {
+  display: block;
+}
+
+.fiok-uzenet.hiba {
+  border-color: #ffb3b3;
+  background-color: #fff3f3;
+  color: #b42318;
+}
