@@ -6,9 +6,11 @@
 *.env
 
 # ==========================================
-# PHP / Composer függőségek
+# PHP / Composer és tesztelő függőségek
 # ==========================================
 /vendor/
+*.phar
+.phpunit.result.cache
 
 # ==========================================
 # Log fájlok és helyi adatbázis dumpok
