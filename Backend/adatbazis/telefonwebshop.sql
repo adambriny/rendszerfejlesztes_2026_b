@@ -26,6 +26,13 @@ SET time_zone = "+00:00";
 --
 -- Tábla szerkezet ehhez a táblához `felhasznalok`
 --
+CREATE DATABASE IF NOT EXISTS `telefonwebshop`
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_hungarian_ci;
+
+USE `telefonwebshop`;
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 
 CREATE TABLE `felhasznalok` (
   `felhasznalo_id` int(11) NOT NULL,
