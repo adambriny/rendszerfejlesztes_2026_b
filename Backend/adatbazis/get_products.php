@@ -281,6 +281,7 @@ SQL;
         ];
 
         valasz([
+            'siker' => true,
             'talalatok' => $termekek,
             'aktualis_oldal' => $aktualisOldal,
             'oldalak_szama' => $oldalakSzama,
