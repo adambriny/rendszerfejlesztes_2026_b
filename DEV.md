@@ -146,3 +146,7 @@ try {
     unset(\$_SESSION['kosar']);
 } catch (Exception e) pdo->rollBack();
 }
+
+## Unit tesztek futtatása
+A tesztek PHPUnit segítségével futtathatók a projekt gyökérkönyvtárából:
+`php phpunit-11.5.58.phar Backend/adatbazis/GetProductsTest.php`
