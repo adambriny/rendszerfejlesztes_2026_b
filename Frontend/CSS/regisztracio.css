@@ -1,0 +1,163 @@
+/* CASEFLOW Globális dizájn alapok és színek */
+:root {
+    --kek: #0875D1;
+    --kek-sotet: #0562B5;
+    --fekete: #171717;
+    --szurke: #666666;
+    --hatter: #F5F7FA;
+    --feher: #FFFFFF;
+    --keret: #E2E7ED;
+}
+
+/* Alapbeállítások */
+body {
+    background-color: var(--hatter);
+    color: var(--fekete);
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Középre igazító konténer */
+.bejelentkezes-kontener {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Egységes középső kártya logóval és űrlappal */
+.bejelentkezes-kartya {
+    background-color: var(--feher);
+    border: 1px solid var(--keret);
+    border-radius: 16px;
+    padding: 35px 40px;
+    width: 100%;
+    max-width: 420px;
+    box-sizing: border-box;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+/* Logó méretezése a kártyán belül */
+.logo {
+    margin-bottom: 10px;
+}
+
+.logo-kep {
+    max-width: 130px;
+    height: auto;
+    display: inline-block;
+}
+
+.oldal-cim {
+    font-size: 24px;
+    font-weight: 800;
+    margin-top: 5px;
+    margin-bottom: 25px;
+    color: var(--fekete);
+}
+
+/* Űrlap elemek - teljes szélességben, szépen igazítva */
+.bejelentkezes-kartya .input-csoport {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 6px;
+    margin-bottom: 18px;
+    text-align: left;
+}
+
+.bejelentkezes-kartya .input-csoport label {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--szurke);
+}
+
+.bejelentkezes-kartya .input-csoport input {
+    padding: 12px 15px;
+    border: 1px solid var(--keret);
+    border-radius: 8px;
+    outline: none;
+    background-color: var(--hatter);
+    font-size: 15px;
+    color: var(--fekete);
+    transition: all 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.bejelentkezes-kartya .input-csoport input:focus {
+    border-color: var(--kek);
+    background-color: var(--feher);
+    box-shadow: 0 0 0 3px rgba(8, 117, 209, 0.1);
+}
+
+/* Jelszó követelmény tipp */
+.jelszo-tipp {
+    text-align: left;
+    margin-top: -10px;
+    margin-bottom: 18px;
+}
+
+/* Hibaüzenet doboz */
+.hiba-uzenet {
+    background-color: #fff5f5;
+    border: 1px solid #ff4d4d;
+    color: #ff4d4d;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+/* Regisztráció gomb */
+.gomb-sor {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.gomb-sor .gomb-kerek {
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+    border-radius: 25px;
+    border: none;
+    background-color: var(--kek);
+    color: var(--feher);
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.gomb-sor .gomb-kerek:hover {
+    background-color: var(--kek-sotet);
+}
+
+.gomb-sor .gomb-kerek:active {
+    transform: scale(0.98);
+}
+
+/* Alsó apróbetűs szöveg */
+.infó-szöveg {
+    font-size: 13px;
+    color: var(--szurke);
+    line-height: 1.5;
+    margin: 0;
+}
+
+.infó-szöveg a {
+    color: var(--kek);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.infó-szöveg a:hover {
+    text-decoration: underline;
+}
