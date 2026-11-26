@@ -119,7 +119,18 @@ function felhasznaloListaMegjelenitese() {
             felhasznaloAllapotValtoztatas(felhasznalo);
         });
 
-        muveletek.append(szerepSelect, allapotGomb);
+
+        // Ez a gomb továbbra is letiltja vagy aktiválja a fiókot
+        const torlesGomb = document.createElement('button');
+        torlesGomb.type = 'button';
+        torlesGomb.className = 'mentes-kis-gomb';
+        torlesGomb.textContent = 'Törlés';
+        torlesGomb.disabled = sajatFiok;
+        torlesGomb.addEventListener('click', () => {
+            felhasznaloTorlese(felhasznalo);
+        });
+
+        muveletek.append(szerepSelect, allapotGomb, torlesGomb);
         sor.append(infok, muveletek);
         lista.appendChild(sor);
     });
@@ -195,8 +206,49 @@ async function felhasznaloAllapotValtoztatas(felhasznalo) {
     }
 }
 
-// Elküldi a módosított felhasználói adatokat a PHP-ból
-async function felhasznaloMentes(felhasznalo, szerepkor, aktiv) {
+
+// Törli a fiókot, miután a backend archiválta a rendeléseket
+async function felhasznaloTorlese(felhasznalo) {
+    if (!confirm(
+        `Biztosan törlöd ${felhasznalo.nev} fiókját? `
+        + 'A rendelései archívumba kerülnek.'
+    )) {
+        return;
+    }
+
+    try {
+        const valasz = await fetch(felhasznaloApi, {
+            method: 'DELETE',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                felhasznalo_id: Number(felhasznalo.felhasznalo_id),
+            }),
+        });
+
+        const adat = await valasz.json();
+
+        if (valasz.status === 401) {
+            window.location.href = 'admin_Bejelentkezes.html';
+            return;
+        }
+
+        if (!valasz.ok || !adat.siker) {
+            throw new Error(adat.hiba || 'A törlés nem sikerült.');
+        }
+
+        adminUzenetMegjelenitese(adat.uzenet);
+        await felhasznalokBetoltese();
+    } catch (hiba) {
+        console.error('Felhasználótörlési hiba:', hiba);
+        adminUzenetMegjelenitese(hiba.message, true);
+    }
+    }
+
+    // Elküldi a módosított felhasználói adatokat a PHP-ból
+    async function felhasznaloMentes(felhasznalo, szerepkor, aktiv) {
     try {
         const valasz = await fetch(felhasznaloApi, {
             method: 'POST',
