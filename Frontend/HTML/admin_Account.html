@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../CSS/admin_Account.css">
-    <link rel="stylesheet" href="../JS/admin_Account.js">
     <link rel="stylesheet" href="../CSS/admin_Belep.css">
-    <link rel="stylesheet" href="../JS/admin_Belep.js">
     <link rel="stylesheet" href="../HTML/admin_Bejelentkezes.html">
     <title>Saját fiókom (Admin) – CASEFLOW</title>
 </head>
@@ -36,11 +34,24 @@
                 <a href="../HTML/admin_Termekek_Kezelese.html">
                     <button class="menu-gomb">Termékek kezelése</button>
                 </a>
-                <button class="menu-gomb" onclick="alert('Rendelések kezelése funkció')">Rendelések kezelése</button>
-                <button class="menu-gomb" onclick="alert('Felhasználók kezelése funkció')">Felhasználók
-                    kezelése</button>
-                <button class="menu-gomb" onclick="alert('Jelszó módosítása funkció')">Jelszó módosítása</button>
+                <a href="../HTML/felhasznalo_Kezeles.html">
+                    <button type="button" class="menu-gomb">Felhasználók kezelése</button>
+                </a>
+                <button
+                    type="button"
+                    class="menu-gomb"
+                    onclick="adminMenuUzenetMegjelenitese('A rendeléskezelő felület még nem érhető el.')">
+                    Rendelések kezelése
+                </button>
 
+                <button
+                    type="button"
+                    class="menu-gomb"
+                    onclick="adminMenuUzenetMegjelenitese('A jelszómódosítási felület még nem érhető el.')">
+                    Jelszó módosítása
+                </button>
+
+                <p id="adminMenuUzenet" class="admin-menu-uzenet" role="status" aria-live="polite"></p>
                 <button class="kijelentkezes-gomb" onclick="kijelentkezes()">Kijelentkezés</button>
             </aside>
 
@@ -52,19 +63,15 @@
                     <div class="urlap-grid">
                         <div class="input-csoport">
                             <label for="nev">Név:</label>
-                            <input type="text" id="nev" value="Admin Péter" required>
+                            <input type="text" id="nev" required>
                         </div>
                         <div class="input-csoport">
                             <label for="email">E-mail:</label>
-                            <input type="email" id="email" value="admin@pelda.hu" required>
-                        </div>
-                        <div class="input-csoport">
-                            <label for="tel">Telefonszám:</label>
-                            <input type="text" id="tel" value="+36 30 765 4321">
+                            <input type="email" id="email" required>
                         </div>
                         <div class="input-csoport">
                             <label for="szerep">Szerepkör:</label>
-                            <input type="text" id="szerep" value="Adminisztrátor" disabled>
+                            <input type="text" id="szerep" disabled>
                         </div>
                     </div>
 
@@ -72,9 +79,11 @@
                         <button type="submit" class="mentes-gomb">Adatok mentése</button>
                         <button type="button" class="megse-gomb" onclick="formAlaphelyzet()">Mégse</button>
                     </div>
+                    <p id="fiokUzenet" class="fiok-uzenet" role="status" aria-live="polite"></p>
                 </form>
             </section>
         </div>
     </main>
+    <script src="../JS/admin_Account.js"></script>
 </body>
 </html>
