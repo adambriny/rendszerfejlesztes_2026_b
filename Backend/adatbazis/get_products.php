@@ -112,11 +112,30 @@ $lekerdezTermekeket = static function (
         'szin' => 'valtozat.szin',
     ];
 
+<<<<<<< Updated upstream
     // Csak a megadott márkát, modellt vagy színt vesszük figyelembe
     foreach ($szuroOszlopok as $kulcs => $oszlop) {
         if ($szurok[$kulcs] !== '') {
             $feltetelek[] = $oszlop . ' = :szuro_' . $kulcs;
             $parameterek['szuro_' . $kulcs] = $szurok[$kulcs];
+=======
+    $keresettSzo = getMezo($bemenet, 'kereso');
+
+    $kertOldal = filter_var(getMezo($bemenet, 'oldal'), FILTER_VALIDATE_INT);
+    $aktualisOldal = $kertOldal && $kertOldal > 0 ? $kertOldal : 1;
+    $oldalMeret = 12;
+
+    foreach (array_merge(array_values($szurok), [$keresettSzo], $anyagok, $mintak) as $ertek) {
+        $hossz = function_exists('mb_strlen')
+            ? mb_strlen($ertek, 'UTF-8')
+            : strlen($ertek);
+
+        if ($hossz > 100) {
+            valasz([
+                'siker' => false,
+                'hiba' => 'A keresési érték legfeljebb 100 karakter lehet.'
+            ], 400);
+>>>>>>> Stashed changes
         }
     }
 
@@ -226,6 +245,7 @@ try {
             }
         }
 
+<<<<<<< Updated upstream
         // Ha az egyezés elég közeli az ajánlott kifejezéssel is lekérjük a termékeket
         if ($maxSzazalek > 50 && $legjobbTalalat !== '') {
             $termekek = $lekerdezTermekeket(
@@ -237,6 +257,76 @@ try {
 
             $uzenet = 'Erre gondoltál: ' . $legjobbTalalat . '?';
         }
+=======
+        $talalatokSzama = count($termekek);
+        $oldalakSzama = max(1, (int) ceil($talalatokSzama / $oldalMeret));
+        $aktualisOldal = min($aktualisOldal, $oldalakSzama);
+
+        $termekek = array_slice(
+            $termekek,
+            ($aktualisOldal - 1) * $oldalMeret,
+            $oldalMeret
+        );
+
+        $opciok = [
+            'markak' => $dbConn->query(
+                'SELECT DISTINCT telefonmodell.marka
+                 FROM telefonmodellek AS telefonmodell
+                 INNER JOIN termek_valtozat AS valtozat
+                     ON valtozat.modell_id = telefonmodell.modell_id
+                 ORDER BY telefonmodell.marka'
+            )->fetchAll(PDO::FETCH_COLUMN),
+
+            'modellek' => $dbConn->query(
+                'SELECT DISTINCT telefonmodell.modell_nev
+                 FROM telefonmodellek AS telefonmodell
+                 INNER JOIN termek_valtozat AS valtozat
+                     ON valtozat.modell_id = telefonmodell.modell_id
+                 ORDER BY telefonmodell.modell_nev'
+            )->fetchAll(PDO::FETCH_COLUMN),
+
+            'anyagok' => $dbConn->query(
+                'SELECT DISTINCT termek.anyag
+                 FROM termekek AS termek
+                 INNER JOIN termek_valtozat AS valtozat
+                     ON valtozat.termek_id = termek.termek_id
+                 ORDER BY termek.anyag'
+            )->fetchAll(PDO::FETCH_COLUMN),
+
+            'mintak' => $dbConn->query(
+                'SELECT DISTINCT termek.minta
+                 FROM termekek AS termek
+                 INNER JOIN termek_valtozat AS valtozat
+                     ON valtozat.termek_id = termek.termek_id
+                 ORDER BY termek.minta'
+            )->fetchAll(PDO::FETCH_COLUMN),
+
+            'szinek' => $dbConn->query(
+                'SELECT DISTINCT valtozat.szin
+                 FROM termek_valtozat AS valtozat
+                 INNER JOIN termekek AS termek
+                     ON termek.termek_id = valtozat.termek_id
+                 ORDER BY valtozat.szin'
+            )->fetchAll(PDO::FETCH_COLUMN),
+        ];
+
+        valasz([
+            'oldalak_szama' => $oldalakSzama,
+            'uzenet' => $uzenet,
+            'opciok' => $opciok,
+            'siker' => true,
+            'talalatok' => $termekek,
+            'talalatok_osszesen' => $talalatokSzama,
+            'aktualis_oldal' => $aktualisOldal,
+        ]);
+    } catch (Throwable $hiba) {
+        error_log('Terméklekérdezési hiba: ' . $hiba->getMessage());
+
+        valasz([
+            'siker' => false,
+            'hiba' => 'A termékek lekérése nem sikerült.'
+        ], 500);
+>>>>>>> Stashed changes
     }
 
     // Az opciókat az adatbázisból olvassuk ki így csak ténylegesen létező értékek látunk
