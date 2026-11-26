@@ -1,4 +1,4 @@
-Admin: admin@admin.hu, AdminJelszo123!
+Admin: admin@admin.com, AdminJelszo123!
 
 Példa Anna: anna@pelda.com, AnnaJelszo123!
 Példa Péter: 'peter@pelda.com, PeterJelszo123!
