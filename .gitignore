@@ -16,6 +16,7 @@
 *.log
 *.sqlite
 *./error.log
+/jelszavak.txt
 
 # ==========================================
 # Fejlesztői környezet (IDE / Szerkesztők)
