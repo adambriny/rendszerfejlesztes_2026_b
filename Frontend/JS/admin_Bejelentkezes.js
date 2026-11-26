@@ -1,4 +1,39 @@
-// Ellenőrzi az admin belépési adatokat a PHP-n
+// Bekéri az e-mail-címet, majd megjeleníti az új jelszót
+document
+    .getElementById('elfelejtettJelszoLink')
+    ?.addEventListener('click', async event => {
+        event.preventDefault();
+
+        const email = prompt('Add meg a fiókodhoz tartozó e-mail-címet:')?.trim();
+
+        if (!email) {
+            return;
+        }
+
+        try {
+            const valasz = await fetch('../../Backend/adatbazis/reset_password.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email }),
+            });
+
+            const adat = await valasz.json();
+
+            if (!valasz.ok || !adat.siker) {
+                alert(adat.hiba || 'Az új jelszó létrehozása nem sikerült.');
+                return;
+            }
+
+            alert(`Az új jelszavad: ${adat.uj_jelszo}`);
+        } catch (hiba) {
+            console.error('Jelszó-visszaállítási hiba:', hiba);
+            alert('A szerver nem érhető el.');
+        }
+    });
+
+// Ellenőrzi a belépési adatokat a PHP-n
 async function handleLogin(event) {
     event.preventDefault();
 
@@ -25,8 +60,12 @@ async function handleLogin(event) {
             return;
         }
 
-        // Sikeres belépés után megnyitjuk a termékkezelő oldalt
-        window.location.href = 'admin_Termekek_Kezelese.html';
+        // Az admin az adminfelületre, a vásárló a webshop főoldalára kerül
+        if (adat.szerepkor === 'admin') {
+            window.location.href = 'admin_Termekek_Kezelese.html';
+        } else {
+            window.location.href = '../../index.html';
+        }
     } catch (hiba) {
         console.error('Belépési hiba:', hiba);
         hibaDoboz.textContent = 'A szerver nem érhető el.';

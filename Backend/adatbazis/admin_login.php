@@ -44,32 +44,56 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL) || $jelszo === '') {
 require_once __DIR__ . '/dbconnect.php';
 
 try {
-    // Csak aktív adminfiókot keresünk
+    // Csak aktív fiókot keresünk, így az inaktív fiók is általános hibát kap
     $lekerdezes = $dbConn->prepare(
-        'SELECT felhasznalo_id, nev, jelszo_hash
-         FROM felhasznalok
-         WHERE email = :email AND szerepkor = :szerepkor AND aktiv = 1'
+        'SELECT felhasznalo_id, nev, jelszo_hash, szerepkor
+        FROM felhasznalok
+        WHERE email = :email AND aktiv = 1'
     );
+    $lekerdezes->execute(['email' => $email]);
+    $felhasznalo = $lekerdezes->fetch(PDO::FETCH_ASSOC);
 
-    $lekerdezes->execute([
-        'email' => $email,
-        'szerepkor' => 'admin',
-    ]);
+    $jelszoJo = false;
 
-    $admin = $lekerdezes->fetch(PDO::FETCH_ASSOC);
+    if ($felhasznalo) {
+        $jelszoJo = password_verify($jelszo, $felhasznalo['jelszo_hash']);
 
-    // A megadott jelszót összehasonlítjuk az adatbázisban tárolt hash-sel
-    if (!$admin || !password_verify($jelszo, $admin['jelszo_hash'])) {
+        // A régi, sima szövegű mintajelszót sikeres belépéskor hash-re cseréljük
+        if (!$jelszoJo && hash_equals($felhasznalo['jelszo_hash'], $jelszo)) {
+            $ujHash = password_hash($jelszo, PASSWORD_DEFAULT);
+            $jelszoMentes = $dbConn->prepare(
+                'UPDATE felhasznalok
+                SET jelszo_hash = :jelszo_hash
+                WHERE felhasznalo_id = :id'
+            );
+            $jelszoMentes->execute([
+                'jelszo_hash' => $ujHash,
+                'id' => $felhasznalo['felhasznalo_id'],
+            ]);
+            $jelszoJo = true;
+        }
+    }
+
+    if (!$felhasznalo || !$jelszoJo) {
         valasz(['siker' => false, 'hiba' => 'Hibás e-mail-cím vagy jelszó.'], 401);
     }
 
-    // Új munkamenet-azonosítót adunk a sikeres belépés után
     session_regenerate_id(true);
-    $_SESSION['admin_id'] = (int) $admin['felhasznalo_id'];
-    $_SESSION['admin_nev'] = $admin['nev'];
-    $_SESSION['szerepkor'] = 'admin';
+    $_SESSION = [];
+    $_SESSION['felhasznalo_id'] = (int) $felhasznalo['felhasznalo_id'];
+    $_SESSION['felhasznalo_nev'] = $felhasznalo['nev'];
+    $_SESSION['szerepkor'] = $felhasznalo['szerepkor'];
 
-    valasz(['siker' => true]);
+    // Az admin oldalak a meglévő admin munkamenet-változókat használják
+    if ($felhasznalo['szerepkor'] === 'admin') {
+        $_SESSION['admin_id'] = (int) $felhasznalo['felhasznalo_id'];
+        $_SESSION['admin_nev'] = $felhasznalo['nev'];
+    }
+
+    valasz([
+        'siker' => true,
+        'szerepkor' => $felhasznalo['szerepkor'],
+    ]);
 } catch (Throwable $hiba) {
     error_log('Admin belépési hiba: ' . $hiba->getMessage());
     valasz(['siker' => false, 'hiba' => 'A belépés jelenleg nem sikerült.'], 500);
