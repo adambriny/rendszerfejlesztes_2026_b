@@ -173,3 +173,27 @@ body {
     line-height: 1.5;
     margin: 0;
 }
+
+
+.fiok-uzenet,
+.admin-menu-uzenet {
+  display: none;
+  padding: 12px 15px;
+  border: 1px solid var(--keret);
+  border-radius: 8px;
+  background-color: #eaf4ff;
+  color: var(--kek);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.fiok-uzenet:not(:empty),
+.admin-menu-uzenet:not(:empty) {
+  display: block;
+}
+
+.fiok-uzenet.hiba {
+  border-color: #ffb3b3;
+  background-color: #fff3f3;
+  color: #b42318;
+}

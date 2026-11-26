@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../CSS/admin_Belep.css">
-    <link rel="stylesheet" href="../JS/admin_Belep.js">
     <title>Bejelentkezés – CASEFLOW</title>
 </head>
 <body>
@@ -19,7 +18,7 @@
         <div class="bejelentkezes-kartya">
             <h1 class="oldal-cim">Bejelentkezés</h1>
             
-            <form id="loginForm" onsubmit="handleLogin(event)">
+            <form id="loginForm" onsubmit="handleLogin(event)" method="post">
                 <!-- E-mail mező -->
                 <div class="input-csoport">
                     <label for="email">E-mail cím</label>
@@ -49,5 +48,6 @@
             </form>
         </div>
     </main>    
+    <script src="../JS/admin_Bejelentkezes.js"></script>
 </body>
 </html>
