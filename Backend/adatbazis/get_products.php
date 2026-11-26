@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // A böngészőnek jelezzük, hogy a válasz JSON formátumú lesz 
 header('Content-Type: application/json; charset=utf-8');
 if (!function_exists('valasz')) {
@@ -94,6 +94,12 @@ if (!defined('PHPUNIT_TEST')) {
     }
 
     $keresesiSzavak = bontKeresesiSzavakra($keresettSzo);
+
+    $oldalBemenet = filter_var($bemenet['oldal'] ?? 1, FILTER_VALIDATE_INT);
+    $aktualisOldal = $oldalBemenet !== false && $oldalBemenet > 0
+        ? $oldalBemenet
+        : 1;
+    $oldalMeret = 9;
 
     $lekerdezTermekeket = static function (
         array $szurok,
@@ -225,6 +231,13 @@ SQL;
             }
         }
 
+        $talalatokSzama = count($termekek);
+        $oldalakSzama = max(1, (int) ceil($talalatokSzama / $oldalMeret));
+        $aktualisOldal = min($aktualisOldal, $oldalakSzama);
+
+        $eltolas = ($aktualisOldal - 1) * $oldalMeret;
+        $termekek = array_slice($termekek, $eltolas, $oldalMeret);
+
         $opciok = [
             'markak' => $dbConn->query(
                 'SELECT DISTINCT telefonmodell.marka
@@ -268,8 +281,9 @@ SQL;
         ];
 
         valasz([
-            'siker' => true,
             'talalatok' => $termekek,
+            'aktualis_oldal' => $aktualisOldal,
+            'oldalak_szama' => $oldalakSzama,
             'uzenet' => $uzenet,
             'opciok' => $opciok,
         ]);
