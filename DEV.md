@@ -146,25 +146,3 @@ try {
     unset(\$_SESSION['kosar']);
 } catch (Exception e) pdo->rollBack();
 }
-
----
-
-## 4. Könnyűsúlyú Architekturális Döntési Rekordok (ADR)
-
-### ADR-001: 6 magtáblás adatbázis-architektúra a 15 táblás helyett
-* *Státusz:* Elfogadva (Accepted)
-* *Kontextus:* A korábbi 15 táblás terv túl sok különálló törzstáblát tartalmazott (színek, anyagok, minták külön táblákban).
-* *Érvek:* A 6 magtáblás modell kevesebb SQL JOIN-t igényel, gyorsabb oldalbetöltést eredményez, és átláthatóbbá teszi a PHP űrlapkezelést.
-* *Következmények:* A rendszer 6 fő táblára épül (felhasznalok, telefonmodellek, termekek, termek_valtozat, rendelesek, rendeles_tetelek), a szín/anyag/minta pedig szöveges mezőként tárolódik.
-
-### ADR-002: PHP Session-alapú kosárkezelés alkalmazása
-* *Státusz:* Elfogadva (Accepted)
-* *Kontextus:* A kosár tartalmának gyakori módosítása felesleges adatbázis I/O terhelést okozna.
-* *Érvek:* A szervermemóriában futó $_SESSION['kosar'] azonnali válaszidőt ad és egyszerűsíti a sémát.
-* *Következmények:* Adatbázis-írás csak a megrendelés leadásakor történik. *(Jövőbeli bővítés: eszközökön átívelő kosármegőrzéshez kosarak tábla vezethető be.)*
-
-### ADR-003: Egységár pillanatfelvételének rögzítése rendeléskor
-* *Státusz:* Elfogadva (Accepted)
-* *Kontextus:* A termékek ára az admin felületen bármikor módosítható.
-* *Érvek:* A korábbi rendelések végösszege nem változhat meg egy későbbi áremelés miatt.
-* *Következmények:* A rendeles_tetelek tábla egysegar mezője a vásárlás pillanatában érvényes árat menti el.
