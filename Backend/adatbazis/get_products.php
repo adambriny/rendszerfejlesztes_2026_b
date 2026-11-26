@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 if (!function_exists('valasz')) {
     function valasz(array $adat, int $statusz = 200): void

@@ -161,6 +161,8 @@ const apiCim = '../../Backend/adatbazis/get_products.php';
 // A keresősáv és az URL-ben kapott keresőkifejezés
 let keresesIdozito;
 let szuroOpcioiBetoltve = false;
+let aktualisOldal = 1;
+let oldalakSzama = 1;
 
 const keresoInput = document.querySelector('.kereso-sav input');
 const keresesiUrlap = document.querySelector('.kereso-sav');
@@ -196,7 +198,7 @@ function oldalcimFrissitese() {
 // Összegyűjti a keresési feltételeket
 function keresesiParameterekOsszegyujtese() {
     const parameterek = new URLSearchParams();
-
+    parameterek.set('oldal', String(aktualisOldal));
     const marka = document.getElementById('markaSzuro')?.value || '';
     const modell = document.getElementById('modellSzuro')?.value || '';
     const szin = document.getElementById('szinSzuro')?.value || '';
@@ -221,6 +223,44 @@ function keresesiParameterekOsszegyujtese() {
     }
 
     return parameterek;
+}
+
+// Megjeleníti az előző és következő oldalt
+function lapozoMegjelenitese() {
+    const lapozo = document.getElementById('termekLapozas');
+
+    if (!lapozo) {
+        return;
+    }
+
+    lapozo.replaceChildren();
+
+    if (oldalakSzama <= 1) {
+        return;
+    }
+
+    const elozoGomb = document.createElement('button');
+    elozoGomb.type = 'button';
+    elozoGomb.textContent = 'Előző';
+    elozoGomb.disabled = aktualisOldal <= 1;
+    elozoGomb.addEventListener('click', () => {
+        aktualisOldal--;
+        termekekLekerdezese();
+    });
+
+    const oldalSzam = document.createElement('span');
+    oldalSzam.textContent = `${aktualisOldal} / ${oldalakSzama}`;
+
+    const kovetkezoGomb = document.createElement('button');
+    kovetkezoGomb.type = 'button';
+    kovetkezoGomb.textContent = 'Következő';
+    kovetkezoGomb.disabled = aktualisOldal >= oldalakSzama;
+    kovetkezoGomb.addEventListener('click', () => {
+        aktualisOldal++;
+        termekekLekerdezese();
+    });
+
+    lapozo.append(elozoGomb, oldalSzam, kovetkezoGomb);
 }
 
 // Lekéri az adatbázisból a termékeket POST-kéréssel
@@ -252,7 +292,11 @@ async function termekekLekerdezese() {
             szuroOpcioiBetoltve = true;
         }
 
+        aktualisOldal = Number(adat.aktualis_oldal) || 1;
+        oldalakSzama = Number(adat.oldalak_szama) || 1;
+
         termekekMegjelenitese(adat.talalatok);
+        lapozoMegjelenitese();
     } catch (hiba) {
         console.error('Nem sikerült lekérni a termékeket:', hiba);
     }
@@ -277,6 +321,7 @@ function oldalszurokTorlese() {
 // Gépeléskor újra lekéri a termékeket
 function szovegesKeresesInditasa() {
     oldalszurokTorlese();
+    aktualisOldal = 1;
     termekekLekerdezese();
 }
 
@@ -287,7 +332,11 @@ function oldalszuroModosult() {
     if (keresoInput) {
         keresoInput.value = '';
     }
+    if (keresoInput) {
+        keresoInput.value = '';
+    }
 
+    aktualisOldal = 1;
     termekekLekerdezese();
 }
 
