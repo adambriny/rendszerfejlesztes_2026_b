@@ -1,78 +1,267 @@
+// Az admin felhasználókezelő végpontja
+const felhasznaloApi = '../../Backend/adatbazis/admin_users.php';
+
+let felhasznalok = [];
+let aktualisAdminId = null;
 let aktivModositas = null;
 
-function szerepValtoztatasAsztal(felhasznaloNev, selectElem) {
-    const ujSzerep = selectElem.value;
-    const eredetiSzerep = selectElem.closest('.felhasznalo-sor').getAttribute('data-szerep');
+// Üzenetet ír ki az oldalsávban a rendelés vagy jelszógomb alatt
+function adminMenuUzenetMegjelenitese(szoveg) {
+    const uzenet = document.getElementById('adminMenuUzenet');
 
-    if (ujSzerep === eredetiSzerep) {
+    if (uzenet) {
+        uzenet.textContent = szoveg;
+    }
+}
+
+// Üzenetet jelenít meg az oldalon
+function adminUzenetMegjelenitese(szoveg, hiba = false) {
+    const uzenet = document.getElementById('adminUzenet');
+
+    if (!uzenet) {
+        return;
+    }
+
+    uzenet.textContent = szoveg;
+    uzenet.style.color = hiba ? 'red' : '';
+}
+
+// Lekéri az adatbázisból a felhasználókat
+async function felhasznalokBetoltese() {
+    try {
+        const valasz = await fetch(felhasznaloApi, {
+            credentials: 'same-origin',
+        });
+
+        if (valasz.status === 401) {
+            window.location.href = 'admin_Bejelentkezes.html';
+            return;
+        }
+
+        const adat = await valasz.json();
+
+        if (!valasz.ok || !adat.siker) {
+            throw new Error(adat.hiba || 'A felhasználók betöltése nem sikerült.');
+        }
+
+        aktualisAdminId = Number(adat.aktualis_admin_id);
+        felhasznalok = adat.felhasznalok || [];
+
+        felhasznaloListaMegjelenitese();
+    } catch (hiba) {
+        console.error('Felhasználóbetöltési hiba:', hiba);
+        adminUzenetMegjelenitese(hiba.message, true);
+    }
+}
+
+// Megjeleníti az adatbázisból kapott felhasználókat
+function felhasznaloListaMegjelenitese() {
+    const lista = document.getElementById('felhasznaloLista');
+
+    if (!lista) {
+        return;
+    }
+
+    lista.replaceChildren();
+
+    if (felhasznalok.length === 0) {
+        const uzenet = document.createElement('p');
+        uzenet.textContent = 'Nincs megjeleníthető felhasználó.';
+        lista.appendChild(uzenet);
+        return;
+    }
+
+    felhasznalok.forEach(felhasznalo => {
+        const sor = document.createElement('div');
+        sor.className = 'felhasznalo-sor';
+        sor.dataset.nev = felhasznalo.nev;
+        sor.dataset.email = felhasznalo.email;
+        sor.dataset.szerep = felhasznalo.szerepkor;
+        sor.dataset.aktiv = String(Number(felhasznalo.aktiv));
+
+        const infok = document.createElement('div');
+        infok.className = 'felhasznalo-infok';
+        infok.textContent =
+            `${felhasznalo.nev} - ${felhasznalo.email} - `
+            + `${Number(felhasznalo.aktiv) === 1 ? 'Aktív' : 'Inaktív'}`;
+
+        const muveletek = document.createElement('div');
+        muveletek.className = 'felhasznalo-muveletek';
+
+        const szerepSelect = document.createElement('select');
+        szerepSelect.className = 'szerep-valaszto';
+
+        [
+            { ertek: 'vasarlo', cimke: 'Regisztrált vásárló' },
+            { ertek: 'admin', cimke: 'Adminisztrátor' },
+        ].forEach(opcioAdat => {
+            const opcio = document.createElement('option');
+            opcio.value = opcioAdat.ertek;
+            opcio.textContent = opcioAdat.cimke;
+            szerepSelect.appendChild(opcio);
+        });
+
+        szerepSelect.value = felhasznalo.szerepkor;
+
+        const sajatFiok = Number(felhasznalo.felhasznalo_id) === aktualisAdminId;
+        szerepSelect.disabled = sajatFiok;
+        szerepSelect.addEventListener('change', () => {
+            szerepValtoztatasAsztal(felhasznalo, szerepSelect);
+        });
+
+        const allapotGomb = document.createElement('button');
+        allapotGomb.type = 'button';
+        allapotGomb.className = 'mentes-kis-gomb';
+        allapotGomb.textContent =
+            Number(felhasznalo.aktiv) === 1 ? 'Letiltás' : 'Aktiválás';
+        allapotGomb.disabled = sajatFiok;
+        allapotGomb.addEventListener('click', () => {
+            felhasznaloAllapotValtoztatas(felhasznalo);
+        });
+
+        muveletek.append(szerepSelect, allapotGomb);
+        sor.append(infok, muveletek);
+        lista.appendChild(sor);
+    });
+
+    felhasznaloSzures();
+}
+
+// Szerepkörmódosítás előtt megerősítést kér
+function szerepValtoztatasAsztal(felhasznalo, selectElem) {
+    if (selectElem.value === felhasznalo.szerepkor) {
         document.getElementById('megerositoPanel').style.display = 'none';
         aktivModositas = null;
         return;
     }
 
-    aktivModositas = {
-        felhasznaloNev: felhasznaloNev,
-        ujSzerep: ujSzerep,
-        selectElem: selectElem
-    };
+    aktivModositas = { felhasznalo, selectElem };
 
-    document.getElementById('celFelhasznaloNev').innerText = felhasznaloNev;
-    document.getElementById('ujSzerepNev').innerText = ujSzerep;
-
+    document.getElementById('celFelhasznaloNev').textContent = felhasznalo.nev;
+    document.getElementById('ujSzerepNev').textContent =
+        selectElem.value === 'admin'
+            ? 'Adminisztrátor'
+            : 'Regisztrált vásárló';
     document.getElementById('megerositoPanel').style.display = 'block';
 }
 
-function szerepVeglegesites() {
-    if (aktivModositas) {
-        const sor = aktivModositas.selectElem.closest('.felhasznalo-sor');
-        
-        sor.setAttribute('data-szerep', aktivModositas.ujSzerep);
-        
-        alert('Sikeresen módosítva! Új szerepkör: ' + aktivModositas.ujSzerep);
-        
+// A megerősített szerepkört elmenti az adatbázisba
+async function szerepVeglegesites() {
+    if (!aktivModositas) {
+        return;
+    }
+
+    const { felhasznalo, selectElem } = aktivModositas;
+    const eredmeny = await felhasznaloMentes(
+        felhasznalo,
+        selectElem.value,
+        Number(felhasznalo.aktiv)
+    );
+
+    if (eredmeny) {
         document.getElementById('megerositoPanel').style.display = 'none';
         aktivModositas = null;
+        await felhasznalokBetoltese();
     }
 }
 
+// Elveti a szerepkör módosítását
 function szerepMegse() {
     if (aktivModositas) {
-        const eredetiSzerep = aktivModositas.selectElem.closest('.felhasznalo-sor').getAttribute('data-szerep');
-        
-        aktivModositas.selectElem.value = eredetiSzerep;
-        
-        document.getElementById('megerositoPanel').style.display = 'none';
-        aktivModositas = null;
+        aktivModositas.selectElem.value = aktivModositas.felhasznalo.szerepkor;
+    }
+
+    document.getElementById('megerositoPanel').style.display = 'none';
+    aktivModositas = null;
+}
+
+// Aktív és inaktív állapot között vált
+async function felhasznaloAllapotValtoztatas(felhasznalo) {
+    const ujAktiv = Number(felhasznalo.aktiv) === 1 ? 0 : 1;
+    const muveletSzoveg = ujAktiv === 1 ? 'aktiválod' : 'letiltod';
+
+    if (!confirm(`Biztosan ${muveletSzoveg} ${felhasznalo.nev} fiókját?`)) {
+        return;
+    }
+
+    const eredmeny = await felhasznaloMentes(
+        felhasznalo,
+        felhasznalo.szerepkor,
+        ujAktiv
+    );
+
+    if (eredmeny) {
+        await felhasznalokBetoltese();
     }
 }
 
-function mentesErtesites(felhasznaloNev) {
-    alert(felhasznaloNev + ' felhasználó adatai frissítve lettek a rendszerben.');
+// Elküldi a módosított felhasználói adatokat a PHP-ból
+async function felhasznaloMentes(felhasznalo, szerepkor, aktiv) {
+    try {
+        const valasz = await fetch(felhasznaloApi, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                felhasznalo_id: Number(felhasznalo.felhasznalo_id),
+                szerepkor,
+                aktiv,
+            }),
+        });
+
+        const adat = await valasz.json();
+
+        if (valasz.status === 401) {
+            window.location.href = 'admin_Bejelentkezes.html';
+            return false;
+        }
+
+        if (!valasz.ok || !adat.siker) {
+            throw new Error(adat.hiba || 'A módosítás nem sikerült.');
+        }
+
+        adminUzenetMegjelenitese(adat.uzenet);
+        return true;
+    } catch (hiba) {
+        console.error('Felhasználómentési hiba:', hiba);
+        adminUzenetMegjelenitese(hiba.message, true);
+        return false;
+    }
 }
 
+// Keresés név és e-mail szerint, szerepkör szerinti szűréssel
 function felhasznaloSzures() {
-    const keresoErtek = document.getElementById('keresoInput').value.toLowerCase();
-    const szerepErtek = document.getElementById('szerepSzuro').value;
-    const sorok = document.querySelectorAll('.felhasznalo-sor');
+    const keresoErtek = document.getElementById('keresoInput')
+        ?.value.trim()
+        .toLocaleLowerCase('hu') || '';
+    const szerepErtek = document.getElementById('szerepSzuro')?.value || '';
 
-    sorok.forEach(sor => {
-        const nev = sor.getAttribute('data-nev').toLowerCase();
-        const email = sor.getAttribute('data-email').toLowerCase();
-        const szerep = sor.getAttribute('data-szerep');
+    document.querySelectorAll('#felhasznaloLista .felhasznalo-sor').forEach(sor => {
+        const nev = (sor.dataset.nev || '').toLocaleLowerCase('hu');
+        const email = (sor.dataset.email || '').toLocaleLowerCase('hu');
 
-        const keresesEgyezik = nev.includes(keresoErtek) || email.includes(keresoErtek);
-        const szerepEgyezik = (szerepErtek === "" || szerep === szerepErtek);
+        const keresesiTalalat =
+            nev.includes(keresoErtek) || email.includes(keresoErtek);
+        const szerepTalalat =
+            szerepErtek === '' || sor.dataset.szerep === szerepErtek;
 
-        if (keresesEgyezik && szerepEgyezik) {
-            sor.style.display = 'flex';
-        } else {
-            sor.style.display = 'none';
-        }
+        sor.style.display = keresesiTalalat && szerepTalalat ? 'flex' : 'none';
     });
 }
 
-function kijelentkezes() {
-    if (confirm('Biztosan ki szeretnél jelentkezni az Admin felületről?')) {
-        window.location.href = '../../index.html';
+// Kijelentkezteti az admint a szerveroldali munkamenetből
+async function kijelentkezes() {
+    try {
+        await fetch('../../Backend/adatbazis/admin_logout.php', {
+            method: 'POST',
+            credentials: 'same-origin',
+        });
+    } finally {
+        window.location.href = 'admin_Bejelentkezes.html';
     }
 }
+
+// Betöltéskor lekéri a felhasználókat az adatbázisból
+document.addEventListener('DOMContentLoaded', felhasznalokBetoltese);
