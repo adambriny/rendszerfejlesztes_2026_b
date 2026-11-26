@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/regisztracio.css">
+    <title>Regisztráció – CASEFLOW</title>
+</head>
+<body>
+    <main class="bejelentkezes-kontener">
+        <div class="bejelentkezes-kartya">
+            <div class="logo">
+                <img src="../PNG/logo12.png" class="logo-kep" alt="CASEFLOW">
+            </div>
+
+            <h1 class="oldal-cim">Regisztráció</h1>
+
+            <form id="regisztracioForm" onsubmit="handleRegistration(event)">
+                <div class="input-csoport">
+                    <label for="nev">Név</label>
+                    <input
+                        type="text"
+                        id="nev"
+                        maxlength="150"
+                        autocomplete="name"
+                        required
+                    >
+                </div>
+
+                <div class="input-csoport">
+                    <label for="email">E-mail cím</label>
+                    <input
+                        type="email"
+                        id="email"
+                        maxlength="255"
+                        placeholder="pelda@email.com"
+                        autocomplete="email"
+                        required
+                    >
+                </div>
+
+                <div class="input-csoport">
+                    <label for="jelszo">Jelszó</label>
+                    <input
+                        type="password"
+                        id="jelszo"
+                        minlength="8"
+                        autocomplete="new-password"
+                        required
+                    >
+                </div>
+
+                <p class="infó-szöveg jelszo-tipp">
+                    Legalább 8 karakter kell, kis- és nagybetűvel, számmal
+                    és különleges karakterrel.
+                </p>
+
+                <div class="input-csoport">
+                    <label for="jelszoUjra">Jelszó újra</label>
+                    <input
+                        type="password"
+                        id="jelszoUjra"
+                        minlength="8"
+                        autocomplete="new-password"
+                        required
+                    >
+                </div>
+
+                <div id="hibaDoboz" class="hiba-uzenet" style="display: none;"></div>
+
+                <div class="gomb-sor">
+                    <button type="submit" class="gomb-kerek gomb-primer">
+                        Regisztráció
+                    </button>
+                </div>
+            </form>
+
+            <p class="infó-szöveg">
+                Már van fiókod?
+                <a href="admin_Bejelentkezes.html">Jelentkezz be</a>
+            </p>
+        </div>
+    </main>
+    <script src="../JS/regisztracio.js"></script>
+</body>
+</html>
