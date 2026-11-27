@@ -65,7 +65,18 @@ function termekekMegjelenitese(termekek) {
 
         const kep = document.createElement('div');
         kep.className = 'kep-doboz';
-        kep.textContent = 'Tok kép';
+
+        if (termek.kep_url && termek.kep_url !== 'placeholder.jpg') {
+            const kepElem = document.createElement('img');
+            kepElem.src = termek.kep_url;
+            kepElem.alt = `${termek.termek_nev} – ${termek.telefon_modell} (${termek.szin})`;
+            kepElem.onerror = () => {
+                kep.textContent = 'A kép nem tölthető be';
+            };
+            kep.appendChild(kepElem);
+        } else {
+            kep.textContent = 'Tok kép';
+        }
 
         const nev = document.createElement('h3');
         nev.className = 'tok-nev';
