@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2026. Nov 16. 20:19
+-- Létrehozás ideje: 2026. Nov 27. 16:34
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -26,13 +26,6 @@ SET time_zone = "+00:00";
 --
 -- Tábla szerkezet ehhez a táblához `felhasznalok`
 --
-CREATE DATABASE IF NOT EXISTS `telefonwebshop`
-    CHARACTER SET utf8mb4
-    COLLATE utf8mb4_hungarian_ci;
-
-USE `telefonwebshop`;
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 
 CREATE TABLE `felhasznalok` (
   `felhasznalo_id` int(11) NOT NULL,
@@ -48,9 +41,10 @@ CREATE TABLE `felhasznalok` (
 --
 
 INSERT INTO `felhasznalok` (`felhasznalo_id`, `nev`, `email`, `jelszo_hash`, `szerepkor`, `aktiv`) VALUES
-(1, 'admin', 'admin@admin.hu', '$2y$10$imWEGHZIhucVWGTwU3h/dODl5Sybwc4fENt.CROsrX/2vuypsYgmi', 'admin', 1),
+(1, 'admin', 'admin@admin.com', '$2y$10$imWEGHZIhucVWGTwU3h/dODl5Sybwc4fENt.CROsrX/2vuypsYgmi', 'admin', 1),
 (2, 'Példa Anna', 'anna@pelda.com', 'AnnaJelszo123!', 'vasarlo', 1),
-(3, 'Példa Péter', 'peter@pelda.com', 'PeterJelszo123!', 'vasarlo', 1);
+(3, 'Példa Péter', 'peter@pelda.com', 'PeterJelszo123!', 'vasarlo', 1),
+(5, 'Példa Béla', 'bela@pelda.com', '$2y$10$leYjgBUuyz5ZFpFgGeW0ceYLohMfjn6.iYmW/aXq4dECEnboiF.OS', 'vasarlo', 1);
 
 -- --------------------------------------------------------
 
@@ -225,18 +219,18 @@ INSERT INTO `termek_valtozat` (`valtozat_id`, `termek_id`, `modell_id`, `szin`, 
 (42, 3, 14, 'piros', 2707.00, 15, 'placeholder.jpg', 1),
 (43, 4, 1, 'fehér', 4449.00, 10, 'placeholder.jpg', 1),
 (44, 4, 2, 'fehér', 7292.00, 16, 'placeholder.jpg', 1),
-(45, 4, 3, 'fehér', 3030.00, 25, 'placeholder.jpg', 1),
-(46, 4, 4, 'rózsaszín', 7154.00, 5, 'placeholder.jpg', 1),
+(45, 4, 3, 'fehér', 3030.00, 25, '../../kepek/Apple_iPhone_13_feher.jpg', 1),
+(46, 4, 4, 'rózsaszín', 7154.00, 5, '../../kepek/Apple_iPhone_12_rozsaszin.jpg', 1),
 (47, 4, 5, 'rózsaszín', 4425.00, 7, 'placeholder.jpg', 1),
 (48, 4, 6, 'piros', 4422.00, 8, 'placeholder.jpg', 1),
 (49, 4, 7, 'zöld', 7510.00, 15, 'placeholder.jpg', 1),
 (50, 4, 8, 'piros', 5101.00, 16, 'placeholder.jpg', 1),
-(51, 4, 9, 'kék', 7956.00, 12, 'placeholder.jpg', 1),
+(51, 4, 9, 'kék', 7956.00, 12, '../../kepek/Samsung_Galaxy_A34_kek.jpg', 1),
 (52, 4, 10, 'fekete', 6802.00, 16, 'placeholder.jpg', 1),
-(53, 4, 11, 'rózsaszín', 7368.00, 14, 'placeholder.jpg', 1),
-(54, 4, 12, 'piros', 3973.00, 10, 'placeholder.jpg', 1),
-(55, 4, 13, 'fekete', 4229.00, 16, 'placeholder.jpg', 1),
-(56, 4, 14, 'kék', 2781.00, 8, 'placeholder.jpg', 1),
+(53, 4, 11, 'rózsaszín', 7368.00, 14, '../../kepek/Xiaomi_Redmi_13T_rozsaszin.jpg', 1),
+(54, 4, 12, 'piros', 3973.00, 10, '../../kepek/Huawei_P60_Pro_piros.jpg', 1),
+(55, 4, 13, 'fekete', 4229.00, 16, '../../kepek/Google_Pixel_8_fekete.jpg', 1),
+(56, 4, 14, 'kék', 2781.00, 8, '../../kepek/OnePlus_OnePlus_12_kek.jpg', 1),
 (57, 5, 1, 'fehér', 7221.00, 17, 'placeholder.jpg', 1),
 (58, 5, 2, 'fekete', 5911.00, 17, 'placeholder.jpg', 1),
 (59, 5, 3, 'kék', 5136.00, 9, 'placeholder.jpg', 1),
@@ -292,7 +286,7 @@ INSERT INTO `termek_valtozat` (`valtozat_id`, `termek_id`, `modell_id`, `szin`, 
 (109, 2, 11, 'fehér', 6459.00, 15, 'placeholder.jpg', 1),
 (110, 2, 12, 'zöld', 7022.00, 13, 'placeholder.jpg', 1),
 (111, 2, 13, 'fehér', 4381.00, 21, 'placeholder.jpg', 1),
-(112, 2, 14, 'átlátszó', 5760.00, 16, 'placeholder.jpg', 1),
+(112, 2, 14, 'átlátszó', 5760.00, 16, '../../kepek/OnePlus_OnePlus_12_marvany_atlatszo.jpg', 1),
 (113, 2, 15, 'kék', 6272.00, 12, 'placeholder.jpg', 1),
 (114, 2, 16, 'fehér', 2970.00, 24, 'placeholder.jpg', 1),
 (115, 2, 17, 'piros', 7896.00, 23, 'placeholder.jpg', 1),
@@ -305,7 +299,7 @@ INSERT INTO `termek_valtozat` (`valtozat_id`, `termek_id`, `modell_id`, `szin`, 
 (122, 2, 24, 'kék', 4398.00, 9, 'placeholder.jpg', 1),
 (123, 2, 25, 'zöld', 3897.00, 19, 'placeholder.jpg', 1),
 (124, 2, 26, 'kék', 6005.00, 23, 'placeholder.jpg', 1),
-(125, 2, 27, 'átlátszó', 2833.00, 16, 'placeholder.jpg', 1),
+(125, 2, 27, 'átlátszó', 2833.00, 16, '../../kepek/Google_Pixel_8_marvany_atlatszo.jpg', 1),
 (126, 2, 28, 'kék', 2408.00, 14, 'placeholder.jpg', 1),
 (127, 3, 1, 'fekete', 4065.00, 16, 'placeholder.jpg', 1),
 (128, 3, 2, 'fehér', 5441.00, 11, 'placeholder.jpg', 1),
@@ -338,31 +332,31 @@ INSERT INTO `termek_valtozat` (`valtozat_id`, `termek_id`, `modell_id`, `szin`, 
 (155, 4, 1, 'rózsaszín', 4367.00, 9, 'placeholder.jpg', 1),
 (156, 4, 2, 'átlátszó', 3761.00, 13, 'placeholder.jpg', 1),
 (157, 4, 3, 'rózsaszín', 6998.00, 5, 'placeholder.jpg', 1),
-(158, 4, 4, 'kék', 4221.00, 18, 'placeholder.jpg', 1),
+(158, 4, 4, 'kék', 4221.00, 18, '../../kepek/Apple_iPhone_12_kek.jpg', 1),
 (159, 4, 5, 'zöld', 4972.00, 7, 'placeholder.jpg', 1),
 (160, 4, 6, 'átlátszó', 4345.00, 22, 'placeholder.jpg', 1),
 (161, 4, 7, 'kék', 4990.00, 20, 'placeholder.jpg', 1),
 (162, 4, 8, 'kék', 5832.00, 22, 'placeholder.jpg', 1),
-(163, 4, 9, 'fehér', 5556.00, 12, 'placeholder.jpg', 1),
-(164, 4, 10, 'átlátszó', 5627.00, 5, 'placeholder.jpg', 1),
-(165, 4, 11, 'fekete', 5201.00, 10, 'placeholder.jpg', 1),
-(166, 4, 12, 'zöld', 5316.00, 17, 'placeholder.jpg', 1),
-(167, 4, 13, 'átlátszó', 4023.00, 7, 'placeholder.jpg', 1),
-(168, 4, 14, 'rózsaszín', 3555.00, 20, 'placeholder.jpg', 1),
+(163, 4, 9, 'fehér', 5556.00, 12, '../../kepek/Samsung_Galaxy_A34_feher.jpg', 1),
+(164, 4, 10, 'átlátszó', 5627.00, 5, '../../kepek/Xiaomi_Redmi_Note_13_atlatszo.jpg', 1),
+(165, 4, 11, 'fekete', 5201.00, 10, '../../kepek/Xiaomi_Redmi_13T_fekete.jpg', 1),
+(166, 4, 12, 'zöld', 5316.00, 17, '../../kepek/Huawei_P60_Pro_zold.jpg', 1),
+(167, 4, 13, 'átlátszó', 4023.00, 7, '../../kepek/Google_Pixel_8_atlatszo.jpg', 1),
+(168, 4, 14, 'rózsaszín', 3555.00, 20, '../../kepek/OnePlus_OnePlus_12_rozsaszin.jpg', 1),
 (169, 4, 15, 'kék', 7320.00, 6, 'placeholder.jpg', 1),
 (170, 4, 16, 'fehér', 6600.00, 11, 'placeholder.jpg', 1),
 (171, 4, 17, 'fekete', 5728.00, 13, 'placeholder.jpg', 1),
-(172, 4, 18, 'zöld', 5082.00, 11, 'placeholder.jpg', 1),
+(172, 4, 18, 'zöld', 5082.00, 11, '../../kepek/Apple_iPhone_12_zold.jpg', 1),
 (173, 4, 19, 'fekete', 3727.00, 9, 'placeholder.jpg', 1),
 (174, 4, 20, 'kék', 4165.00, 15, 'placeholder.jpg', 1),
 (175, 4, 21, 'fehér', 4750.00, 18, 'placeholder.jpg', 1),
-(176, 4, 22, 'átlátszó', 3183.00, 9, 'placeholder.jpg', 1),
-(177, 4, 23, 'rózsaszín', 6675.00, 10, 'placeholder.jpg', 1),
+(176, 4, 22, 'átlátszó', 3183.00, 9, '../../kepek/Samsung_Galaxy_A54_atlatszo.jpg', 1),
+(177, 4, 23, 'rózsaszín', 6675.00, 10, '../../kepek/Samsung_Galaxy_A34_rozsaszin.jpg', 1),
 (178, 4, 24, 'rózsaszín', 4890.00, 18, 'placeholder.jpg', 1),
-(179, 4, 25, 'zöld', 6672.00, 12, 'placeholder.jpg', 1),
-(180, 4, 26, 'rózsaszín', 3862.00, 22, 'placeholder.jpg', 1),
-(181, 4, 27, 'fekete', 4731.00, 15, 'placeholder.jpg', 1),
-(182, 4, 28, 'átlátszó', 6882.00, 16, 'placeholder.jpg', 1),
+(179, 4, 25, 'zöld', 6672.00, 12, '../../kepek/Xiaomi_Redmi_13T_zold.jpg', 1),
+(180, 4, 26, 'rózsaszín', 3862.00, 22, '../../kepek/Huawei_P60_Pro_rozsaszin.jpg', 1),
+(181, 4, 27, 'fekete', 4731.00, 15, '../../kepek/Google_Pixel_8_fekete.jpg', 1),
+(182, 4, 28, 'átlátszó', 6882.00, 16, '../../kepek/OnePlus_OnePlus_12_atlatszo.jpg', 1),
 (183, 5, 1, 'rózsaszín', 2198.00, 17, 'placeholder.jpg', 1),
 (184, 5, 2, 'piros', 7954.00, 13, 'placeholder.jpg', 1),
 (185, 5, 3, 'kék', 3980.00, 23, 'placeholder.jpg', 1),
@@ -444,7 +438,7 @@ INSERT INTO `termek_valtozat` (`valtozat_id`, `termek_id`, `modell_id`, `szin`, 
 (261, 7, 23, 'fekete', 7641.00, 18, 'placeholder.jpg', 1),
 (262, 7, 24, 'kék', 2146.00, 18, 'placeholder.jpg', 1),
 (263, 7, 25, 'zöld', 7833.00, 21, 'placeholder.jpg', 1),
-(264, 7, 26, 'fekete', 3875.00, 20, 'placeholder.jpg', 1),
+(264, 7, 26, 'fekete', 3875.00, 20, '../../kepek/Huawei_P60_Pro_marvany_fekete.jpg', 1),
 (265, 7, 27, 'kék', 5378.00, 6, 'placeholder.jpg', 1),
 (266, 7, 28, 'kék', 2506.00, 22, 'placeholder.jpg', 1),
 (267, 8, 1, 'piros', 3813.00, 25, 'placeholder.jpg', 1),
@@ -478,43 +472,43 @@ INSERT INTO `termek_valtozat` (`valtozat_id`, `termek_id`, `modell_id`, `szin`, 
 (295, 9, 1, 'fehér', 6297.00, 25, 'placeholder.jpg', 1),
 (296, 9, 2, 'átlátszó', 2820.00, 14, 'placeholder.jpg', 1),
 (297, 9, 3, 'kék', 3769.00, 10, 'placeholder.jpg', 1),
-(298, 9, 4, 'rózsaszín', 4112.00, 23, 'placeholder.jpg', 1),
+(298, 9, 4, 'rózsaszín', 4112.00, 23, '../../kepek/Apple_iPhone_12_rozsaszin.jpg', 1),
 (299, 9, 5, 'rózsaszín', 6321.00, 22, 'placeholder.jpg', 1),
 (300, 9, 6, 'kék', 4217.00, 10, 'placeholder.jpg', 1),
 (301, 9, 7, 'fekete', 3307.00, 6, 'placeholder.jpg', 1),
 (302, 9, 8, 'átlátszó', 7429.00, 17, 'placeholder.jpg', 1),
-(303, 9, 9, 'kék', 5817.00, 14, 'placeholder.jpg', 1),
+(303, 9, 9, 'kék', 5817.00, 14, '../../kepek/Samsung_Galaxy_A34_kek.jpg', 1),
 (304, 9, 10, 'fehér', 7723.00, 18, 'placeholder.jpg', 1),
-(305, 9, 11, 'kék', 2774.00, 7, 'placeholder.jpg', 1),
-(306, 9, 12, 'rózsaszín', 5378.00, 15, 'placeholder.jpg', 1),
-(307, 9, 13, 'kék', 5624.00, 24, 'placeholder.jpg', 1),
-(308, 9, 14, 'átlátszó', 4099.00, 12, 'placeholder.jpg', 1),
+(305, 9, 11, 'kék', 2774.00, 7, '../../kepek/Xiaomi_Redmi_13T_kek.jpg', 1),
+(306, 9, 12, 'rózsaszín', 5378.00, 15, '../../kepek/Huawei_P60_Pro_rozsaszin.jpg', 1),
+(307, 9, 13, 'kék', 5624.00, 24, '../../kepek/Google_Pixel_8_kek.jpg', 1),
+(308, 9, 14, 'átlátszó', 4099.00, 12, '../../kepek/OnePlus_OnePlus_12_atlatszo.jpg', 1),
 (309, 9, 15, 'rózsaszín', 7332.00, 9, 'placeholder.jpg', 1),
 (310, 9, 16, 'fehér', 7557.00, 17, 'placeholder.jpg', 1),
 (311, 9, 17, 'rózsaszín', 5874.00, 23, 'placeholder.jpg', 1),
-(312, 9, 18, 'átlátszó', 7555.00, 19, 'placeholder.jpg', 1),
+(312, 9, 18, 'átlátszó', 7555.00, 19, '../../kepek/Apple_iPhone_12_atlatszo.jpg', 1),
 (313, 9, 19, 'átlátszó', 5467.00, 12, 'placeholder.jpg', 1),
 (314, 9, 20, 'fekete', 4135.00, 17, 'placeholder.jpg', 1),
 (315, 9, 21, 'piros', 3718.00, 25, 'placeholder.jpg', 1),
 (316, 9, 22, 'piros', 6165.00, 17, 'placeholder.jpg', 1),
-(317, 9, 23, 'átlátszó', 6193.00, 16, 'placeholder.jpg', 1),
+(317, 9, 23, 'átlátszó', 6193.00, 16, '../../kepek/Samsung_Galaxy_A34_atlatszo.jpg', 1),
 (318, 9, 24, 'piros', 7217.00, 8, 'placeholder.jpg', 1),
-(319, 9, 25, 'fehér', 6928.00, 14, 'placeholder.jpg', 1),
-(320, 9, 26, 'kék', 6319.00, 23, 'placeholder.jpg', 1),
-(321, 9, 27, 'átlátszó', 5808.00, 24, 'placeholder.jpg', 1),
-(322, 9, 28, 'fehér', 6342.00, 24, 'placeholder.jpg', 1),
+(319, 9, 25, 'fehér', 6928.00, 14, '../../kepek/Xiaomi_Redmi_13T_feher.jpg', 1),
+(320, 9, 26, 'kék', 6319.00, 23, '../../kepek/Huawei_P60_Pro_kek.jpg', 1),
+(321, 9, 27, 'átlátszó', 5808.00, 24, '../../kepek/Google_Pixel_8_atlatszo.jpg', 1),
+(322, 9, 28, 'fehér', 6342.00, 24, '../../kepek/OnePlus_OnePlus_12_feher.jpg', 1),
 (323, 10, 1, 'zöld', 4949.00, 20, 'placeholder.jpg', 1),
 (324, 10, 2, 'piros', 6417.00, 7, 'placeholder.jpg', 1),
 (325, 10, 3, 'átlátszó', 7758.00, 10, 'placeholder.jpg', 1),
-(326, 10, 4, 'fehér', 5153.00, 16, 'placeholder.jpg', 1),
+(326, 10, 4, 'fehér', 5153.00, 1, '../../kepek/Apple_iPhone_12_bor_feher.jpg', 1),
 (327, 10, 5, 'piros', 6691.00, 7, 'placeholder.jpg', 1),
 (328, 10, 6, 'fehér', 2522.00, 16, 'placeholder.jpg', 1),
 (329, 10, 7, 'átlátszó', 6663.00, 18, 'placeholder.jpg', 1),
 (330, 10, 8, 'kék', 2150.00, 12, 'placeholder.jpg', 1),
-(331, 10, 9, 'fekete', 4231.00, 13, 'placeholder.jpg', 1),
+(331, 10, 9, 'fekete', 4231.00, 13, '../../kepek/Samsung_Galaxy_A34_bor_fekete.jpg', 1),
 (332, 10, 10, 'rózsaszín', 6536.00, 5, 'placeholder.jpg', 1),
-(333, 10, 11, 'fekete', 5173.00, 24, 'placeholder.jpg', 1),
-(334, 10, 12, 'fehér', 2108.00, 17, 'placeholder.jpg', 1),
+(333, 10, 11, 'fekete', 5173.00, 24, '../../kepek/Xiaomi_Redmi_13T_bor_fekete.jpg', 1),
+(334, 10, 12, 'fehér', 2108.00, 17, '../../kepek/Huawei_P60_Pro_bor_feher.jpg', 1),
 (335, 10, 13, 'zöld', 3501.00, 9, 'placeholder.jpg', 1),
 (336, 10, 14, 'zöld', 2555.00, 20, 'placeholder.jpg', 1),
 (337, 10, 15, 'fehér', 2538.00, 25, 'placeholder.jpg', 1),
@@ -529,8 +523,8 @@ INSERT INTO `termek_valtozat` (`valtozat_id`, `termek_id`, `modell_id`, `szin`, 
 (346, 10, 24, 'kék', 5014.00, 25, 'placeholder.jpg', 1),
 (347, 10, 25, 'fekete', 6326.00, 25, 'placeholder.jpg', 1),
 (348, 10, 26, 'rózsaszín', 5405.00, 25, 'placeholder.jpg', 1),
-(349, 10, 27, 'rózsaszín', 6221.00, 6, 'placeholder.jpg', 1),
-(350, 10, 28, 'fehér', 7120.00, 20, 'placeholder.jpg', 1);
+(349, 10, 27, 'rózsaszín', 6221.00, 6, '../../kepek/Google_Pixel_8_bor_rozsaszin.jpg', 1),
+(350, 10, 28, 'fehér', 7120.00, 20, '../../kepek/OnePlus_OnePlus_12_bor_feher.jpg', 1);
 
 --
 -- Indexek a kiírt táblákhoz
@@ -586,7 +580,7 @@ ALTER TABLE `termek_valtozat`
 -- AUTO_INCREMENT a táblához `felhasznalok`
 --
 ALTER TABLE `felhasznalok`
-  MODIFY `felhasznalo_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `felhasznalo_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT a táblához `rendelesek`
