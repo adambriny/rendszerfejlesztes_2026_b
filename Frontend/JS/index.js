@@ -1,6 +1,12 @@
 const keresesiUrlap = document.querySelector('.kereso-sav');
 const keresesiLink = document.querySelector('.kiemelt-link');
 
+const hirlevelUrlap = document.querySelector('.hirlevel-urlap');
+hirlevelUrlap?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    hirlevelUrlap.reset();
+});
+
 keresesiLink?.addEventListener('click', (event) => {
     event.preventDefault();
     keresesiUrlap?.requestSubmit();
