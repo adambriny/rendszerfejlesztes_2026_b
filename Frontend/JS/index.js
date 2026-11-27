@@ -12,11 +12,10 @@ async function fooldaliAdatokBetoltese() {
     const termekKontener = document.querySelector('.termekek-resz .negy-oszlop');
 
     try {
-        // Lekérjük a termékeket és az adatbázisban szereplő márkákat
-        const valasz = await fetch('./Backend/adatbazis/get_products.php');
+        const valasz = await fetch('./Backend/adatbazis/get_homepage.php');
 
         if (!valasz.ok) {
-            throw new Error(`HTTP hiba: ${valasz.status}`);
+            throw new Error('HTTP hiba: ' + valasz.status);
         }
 
         const adat = await valasz.json();
@@ -25,35 +24,44 @@ async function fooldaliAdatokBetoltese() {
             throw new Error(adat.hiba || 'A főoldali adatok betöltése nem sikerült.');
         }
 
-        // A márkakártyákat az adatbázisból kapott márkalistából készítjük
         if (markaKontener) {
-            markakMegjelenitese(markaKontener, adat.opciok?.markak || []);
+            markakMegjelenitese(markaKontener, adat.markak || []);
         }
 
-        // A termékváltozatok közül termékenként egyet tartunk meg
-        // Az adott termék legolcsóbb változatának árát mutatjuks
-        const egyediTermekek = new Map();
-
-        (adat.talalatok || []).forEach(termek => {
-            const termekId = String(termek.termek_id);
-            const korabbiTermek = egyediTermekek.get(termekId);
-
-            if (!korabbiTermek || Number(termek.ar) < Number(korabbiTermek.ar)) {
-                egyediTermekek.set(termekId, termek);
-            }
-        });
-
-        // A legnagyobb termek_id jelöli a legutóbb felvitt termékeket
-        const legujabbTermekek = Array.from(egyediTermekek.values())
-            .sort((a, b) => Number(b.termek_id) - Number(a.termek_id))
-            .slice(0, 4);
-
         if (termekKontener) {
-            termekekMegjelenitese( termekKontener, legujabbTermekek);
+            termekekMegjelenitese(termekKontener, adat.legujabb_termekek || []);
         }
     } catch (hiba) {
         console.error('Nem sikerült betölteni a főoldali adatokat:', hiba);
     }
+}
+
+// Az adatbázisban tárolt url a főoldal helyéhez igazítja
+function fooldaliKepUrl(kepUrl) {
+    if (!kepUrl || kepUrl === 'placeholder.jpg') {
+        return '';
+    }
+
+    const fajlNev = String(kepUrl).replace(/\\/g, '/').split('/').pop();
+    return './kepek/' + encodeURIComponent(fajlNev);
+}
+
+// Képet jelenít meg vagy helykitöltőt használ ha nincs elérhető kép
+function kepMegjelenitese(kepHelye, kepUrl, altSzoveg) {
+    const fooldaliUrl = fooldaliKepUrl(kepUrl);
+
+    if (!fooldaliUrl) {
+        kepHelye.textContent = 'Tok kép';
+        return;
+    }
+
+    const kep = document.createElement('img');
+    kep.src = fooldaliUrl;
+    kep.alt = altSzoveg;
+    kep.onerror = () => {
+        kepHelye.textContent = 'Tok kép';
+    };
+    kepHelye.appendChild(kep);
 }
 
 // Adatbázisból kapott márkákból készít kártyákat
@@ -67,7 +75,8 @@ function markakMegjelenitese(kontener, markak) {
         return;
     }
 
-    markak.forEach(marka => {
+    markak.forEach(markaAdat => {
+        const marka = markaAdat.marka;
         const kartya = document.createElement('a');
         kartya.className = 'marka-kartya';
 
@@ -78,20 +87,20 @@ function markakMegjelenitese(kontener, markak) {
 
         const kepHelye = document.createElement('div');
         kepHelye.className = 'kep-helye';
-        kepHelye.textContent = 'Tok kép';
+        kepMegjelenitese(kepHelye, markaAdat.kep_url, marka + ' legújabb termékképe');
 
         const cim = document.createElement('h3');
         cim.textContent = marka;
 
         const leiras = document.createElement('p');
-        leiras.textContent = `Telefontokok ${marka} készülékekhez`;
+        leiras.textContent = 'Telefontokok ' + marka + ' készülékekhez';
 
         kartya.append(kepHelye, cim, leiras);
         kontener.appendChild(kartya);
     });
 }
 
-// Adatbázisból kapott termékekből készít főoldali kártyákat
+// Az adatbázis legújabb négy termékéből készít főoldali kártyákat
 function termekekMegjelenitese(kontener, termekek) {
     kontener.replaceChildren();
 
@@ -108,16 +117,15 @@ function termekekMegjelenitese(kontener, termekek) {
 
         const kepHelye = document.createElement('div');
         kepHelye.className = 'kep-helye';
-        kepHelye.textContent = 'Tok kép';
+        kepMegjelenitese(kepHelye, termek.kep_url, termek.termek_nev);
 
         const cim = document.createElement('h3');
         cim.textContent = termek.termek_nev;
 
         const ar = document.createElement('p');
         ar.className = 'ar';
-        ar.textContent = `${Number(termek.ar).toLocaleString('hu-HU')} Ft-tól`;
+        ar.textContent = Number(termek.ar).toLocaleString('hu-HU') + ' Ft-tól';
 
-        // A kosáremoji csak díszítő elem, nem végez műveletet
         const kosarEmoji = document.createElement('span');
         kosarEmoji.textContent = ' 🛒';
         kosarEmoji.setAttribute('aria-hidden', 'true');
@@ -128,5 +136,4 @@ function termekekMegjelenitese(kontener, termekek) {
     });
 }
 
-// Betöltjük a főoldali adatokat amikor elkészült
 document.addEventListener('DOMContentLoaded', fooldaliAdatokBetoltese);
